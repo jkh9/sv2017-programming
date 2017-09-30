@@ -1,7 +1,7 @@
-// Count 1 to 25
+// Count 1 to 25, while (starting at 0)
 
 using System;
-public class Ex038
+public class Count1To25a
 {
     public static void Main()
     {
