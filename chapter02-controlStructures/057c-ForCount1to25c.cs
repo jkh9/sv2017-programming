@@ -1,7 +1,7 @@
-// Count, 1 to 25, for (2)
+// Count, 1 to 25, for (3)
 
 using System;
-public class For2
+public class For3
 {
     public static void Main()
     {
