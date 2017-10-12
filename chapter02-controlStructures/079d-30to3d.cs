@@ -4,7 +4,7 @@ multiples of 3, except 12, three times: first using "for", then "while",
 finally "do-while".
 */
 
-// Forth approach, valir
+// Fourth approach, valid
 
 using System;
 
