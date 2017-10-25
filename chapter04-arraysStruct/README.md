@@ -2,4 +2,4 @@
 
 ## Chapter 4
 
-Exercises of chapter 4
+Exercises of chapter 4: Arrays and structs
