@@ -1,5 +1,5 @@
 // Examen de los temas 2 y 3, ejercicio 1
-// Versión A (demasiado repetitiva)
+// Versión B (demasiado repetitiva)
 
 using System;
 
