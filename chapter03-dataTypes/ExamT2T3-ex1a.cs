@@ -1,9 +1,9 @@
-// Examen de los temas 2 y 3, ejercicio 3
+// Examen de los temas 2 y 3, ejercicio 1
 // Versión A (demasiado repetitiva)
 
 using System;
 
-public class Exam01
+public class Exam01a
 {
     public static void Main()
     {
