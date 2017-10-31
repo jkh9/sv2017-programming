@@ -25,8 +25,8 @@ public class Ex3b
         Console.WriteLine("Equals? " + equals);
             
         equals = num1 == num2 && num1 == num3 ? (byte) 3 :
-			num1 == num2 || num1 == num3 || num2 == num3 ? (byte) 2:
-			(byte) 1;
+            num1 == num2 || num1 == num3 || num2 == num3 ? (byte) 2:
+            (byte) 1;
         Console.WriteLine("Equals? " + equals);
     }
 }

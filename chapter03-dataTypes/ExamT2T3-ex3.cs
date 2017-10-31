@@ -18,15 +18,15 @@ public class ex3
         
         if(num1 == num2 && num1 == num3)
             equals = 3;
-        else if(num1 != num2 && num1 != num3)
+        else if(num1 != num2 && num1 != num3  && num2 != num3)
             equals = 1;
         else
             equals = 2;            
         Console.WriteLine("Equals? " + equals);
             
         equals = num1 == num2 && num1 == num3 ? (byte) 3 :
-			num1 != num2 && num1 != num3? (byte) 1:
-			(byte) 2;
+            num1 != num2 && num1 != num3  && num2 != num3 ? (byte) 1:
+            (byte) 2;
         Console.WriteLine("Equals? " + equals);
     }
 }
