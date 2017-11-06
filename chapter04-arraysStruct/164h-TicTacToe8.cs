@@ -1,12 +1,11 @@
-﻿//Moisés, Nacho, Raul
-using System;
+﻿using System;
 
-public class ThreeInARow
+public class TicTacToe1
 {
     public static void Main()
     {
-        const int BLOCKS = 3;
-        char[,] line = new char[BLOCKS, BLOCKS];
+        const int BOARD_SIZE = 3;
+        char[,] line = new char[BOARD_SIZE, BOARD_SIZE];
 
         do
         {
@@ -17,18 +16,18 @@ public class ThreeInARow
 
             line[row -1, column-1] = 'X';
 
-            for (int a = 0; a < BLOCKS; a++)
+            for (int r = 0; r < BOARD_SIZE; r++)
             {
                 Console.WriteLine("+-+-+-+");
-                for (int i = 0; i < BLOCKS; i++)
+                for (int c = 0; c < BOARD_SIZE; c++)
                 {
-                    Console.Write("|"+line[a, i]);
+                    Console.Write("|"+line[r, c]);
                 }
                 Console.WriteLine("|");
             }
             Console.WriteLine("+-+-+-+");
+            Console.WriteLine();
         }
         while (true);
-
     }
 }
