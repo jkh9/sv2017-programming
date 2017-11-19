@@ -50,14 +50,13 @@ comments. For example, a comment like " Test Data " would become "Test Data".
 Q - Quit (end the application; as we do not store the information, will be lost).
 */
 
-// Gonzalo Martinez
-// Preliminary version, not checked
+// Gonzalo Martinez, minor corrections by Nacho
 
 using System;
 
 struct Ram
 {
-    public string measure;
+    public string unit;
     public ushort size;
 }
 struct Computer
@@ -78,11 +77,11 @@ public class Ex192
         string option;
         bool finished = false;
         int count = 0;
-        
+
         do
         {
             Console.WriteLine("1.Add data");
-            Console.WriteLine("2.Show brands");
+            Console.WriteLine("2.Show brands & models");
             Console.WriteLine("3.Search computers");
             Console.WriteLine("4.Update information");
             Console.WriteLine("5.Delete data");
@@ -91,44 +90,50 @@ public class Ex192
             Console.WriteLine("8.Remove extra spaces");
             Console.WriteLine("Q.Exit");
             Console.WriteLine();
-            
+
             Console.Write("Choose an option: ");
             option = Console.ReadLine();
-            
-            switch(option)
+
+            switch (option)
             {
-                // To add data
-                case "1":
-                    if(count < SIZE)
+                case "1":   // Add new data
+                    if (count < SIZE)
                     {
                         do
                         {
                             Console.Write("Enter the brand: ");
                             computers[count].brand = Console.ReadLine();
-                        }while(computers[count].brand == "");
-                        
+                            if (computers[count].brand == "")
+                                Console.WriteLine("The brand cannot be empty");
+                        }
+                        while (computers[count].brand == "");
+
                         do
                         {
                             Console.Write("Enter the model: ");
                             computers[count].model = Console.ReadLine();
-                        }while(computers[count].model.Length > 50);
-                        
+                            if (computers[count].model.Length > 50)
+                                Console.WriteLine("The model cannot be more "
+                                    +"than 50 letters");
+                        }
+                        while (computers[count].model.Length > 50);
+
                         Console.Write("Enter the year: ");
-                        computers[count].year = 
+                        computers[count].year =
                             Convert.ToUInt16(Console.ReadLine());
-                        if(computers[count].year < 1900)
+                        if (computers[count].year < 1900)
                             computers[count].year = 0;
-                        
-                        Console.Write("Enter the type of memory: ");
-                        computers[count].memory.measure = Console.ReadLine();
-                        
-                        Console.Write("Enter the size of memory: ");
-                        computers[count].memory.size = 
+
+                        Console.Write("Enter the type of memory (eg KB): ");
+                        computers[count].memory.unit = Console.ReadLine();
+
+                        Console.Write("Enter the size of memory (eg 64): ");
+                        computers[count].memory.size =
                             Convert.ToUInt16(Console.ReadLine());
-                            
+
                         Console.Write("Enter the comments: ");
                         computers[count].comments = Console.ReadLine();
-                        
+
                         count++;
                     }
                     else
@@ -137,28 +142,32 @@ public class Ex192
                         Console.WriteLine();
                     }
                     break;
-                case "2":
-                    if(count == 0)
-                        Console.WriteLine("No data saved");
+
+                case "2":   // Show brands and models
+                    if (count == 0)
+                        Console.WriteLine("No data available");
                     else
                     {
-                        for(int i = 0; i < count; i++)
+                        for (int i = 0; i < count; i++)
                         {
-                            Console.WriteLine(computers[i].brand + " - " + 
+                            Console.WriteLine(computers[i].brand + " - " +
                                 computers[i].model);
-                            if(i % 24 == 23)
+                            if (i % 24 == 23)
+                            {
                                 Console.WriteLine("Press Enter to continue");
                                 Console.ReadLine();
+                            }
                         }
                     }
                     break;
-                case "3":
+
+                case "3":   // Search
                     bool datafound = false;
-                    Console.Write("Item to search? ");
+                    Console.Write("Text to search? ");
                     string str = Console.ReadLine().ToLower();
-                    for(int i = 0; i < count; i++)
+                    for (int i = 0; i < count; i++)
                     {
-                        if(computers[i].brand.ToLower().Contains(str) || 
+                        if (computers[i].brand.ToLower().Contains(str) ||
                             computers[i].model.ToLower().Contains(str) ||
                             computers[i].comments.ToLower().Contains(str))
                         {
@@ -166,118 +175,117 @@ public class Ex192
                             Console.WriteLine("Computer {0}", i + 1);
                             Console.WriteLine("Brand: {0}", computers[i].brand);
                             Console.WriteLine("Model: {0}", computers[i].model);
-                            if(computers[i].year == 0)
+                            if (computers[i].year == 0)
                                 Console.WriteLine("Year unknown");
                             else
-                                Console.WriteLine("Year: {0}", 
+                                Console.WriteLine("Year: {0}",
                                     computers[i].year);
-                            Console.WriteLine("Memory: {0} {1}", 
-                                computers[i].memory.size, 
-                                computers[i].memory.measure);
-                            Console.WriteLine("Comments: {0}", 
+                            Console.WriteLine("Memory: {0} {1}",
+                                computers[i].memory.size,
+                                computers[i].memory.unit);
+                            Console.WriteLine("Comments: {0}",
                                 computers[i].comments);
                             Console.WriteLine();
                         }
                     }
-                    if(!datafound)
+                    if (!datafound)
                         Console.WriteLine("Data not found");
                     break;
-                case "4":
-                    Console.Write("Number of data? ");
-                    int num = Convert.ToInt32(Console.ReadLine());
-                    num--;
-                    if(num >= count || num < 0)
-                        Console.WriteLine("Not a valid record");
+
+                case "4":   // Modify
+                    Console.Write("Number of record to modify? ");
+                    int num = Convert.ToInt32(Console.ReadLine()) - 1;
+                    if (num >= count || num < 0)
+                        Console.WriteLine("Not a valid record number");
                     else
-                    {    
+                    {
                         Console.WriteLine("Computer {0}", num + 1);
-                        Console.WriteLine("Enter the new brand (it was {0})", 
+                        Console.WriteLine("Enter the new brand (it was {0})",
                             computers[num].brand);
                         string answer = Console.ReadLine();
-                        if(answer != "")
+                        if (answer != "")
                             computers[num].brand = answer;
-                            
-                        Console.WriteLine("Enter the new model (it was {0})", 
+
+                        Console.WriteLine("Enter the new model (it was {0})",
                             computers[num].model);
                         answer = Console.ReadLine();
-                        if(answer != "")
+                        if (answer != "")
                             computers[num].model = answer;
-                            
-                        Console.WriteLine("Enter the new year (it was {0})", 
+
+                        Console.WriteLine("Enter the new year (it was {0})",
                             computers[num].year);
                         answer = Console.ReadLine();
-                        if(answer != "")
+                        if (answer != "")
                             computers[num].year = Convert.ToUInt16(answer);
-                            
-                        Console.WriteLine("Enter the new measure (it was {0})", 
-                            computers[num].memory.measure);
+
+                        Console.WriteLine("Enter the new unit (it was {0})",
+                            computers[num].memory.unit);
                         answer = Console.ReadLine();
-                        if(answer != "")
-                            computers[num].memory.measure = answer;
-                            
-                        Console.WriteLine("Enter the new size (it was {0})", 
+                        if (answer != "")
+                            computers[num].memory.unit = answer;
+
+                        Console.WriteLine("Enter the new size (it was {0})",
                             computers[num].memory.size);
                         answer = Console.ReadLine();
-                        if(answer != "")
-                            computers[num].memory.size = 
+                        if (answer != "")
+                            computers[num].memory.size =
                                 Convert.ToUInt16(answer);
-                            
-                        Console.WriteLine("Enter the new comment (it was {0})", 
+
+                        Console.WriteLine("Enter the new comment (it was {0})",
                             computers[num].comments);
                         answer = Console.ReadLine();
-                        if(answer != "")
+                        if (answer != "")
                             computers[num].comments = answer;
                     }
                     break;
-                case "5":
-                    Console.Write("Number of data? ");
-                    int pos = Convert.ToInt32(Console.ReadLine());
-                    pos--;
-                    if(pos >= count || pos < 0)
+
+                case "5":   // Delete one record
+                    Console.Write("Number of record to delete? ");
+                    int pos = Convert.ToInt32(Console.ReadLine()) - 1;
+                    if (pos >= count || pos < 0)
                         Console.WriteLine("Not a valid record");
                     else
-                    {    
-                        for(int i = pos; i < count - 1; i++)
+                    {
+                        for (int i = pos; i < count - 1; i++)
                         {
-                            computers[i] = computers[i+1];
+                            computers[i] = computers[i + 1];
                         }
                         count--;
                     }
                     break;
-                case "6":
+
+                case "6":  // Insert one record
                     Console.Write("Position to insert data? ");
-                    pos = Convert.ToInt32(Console.ReadLine());
-                    pos--;
-                    if(pos >= count || pos < 0)
+                    pos = Convert.ToInt32(Console.ReadLine()) - 1;
+                    if (pos >= count || pos < 0)
                         Console.WriteLine("Not a valid record");
                     else
                     {
-                        for(int i = pos; i < count - 1; i++)
+                        for (int i = count; i > pos; i--)
                         {
-                            computers[i] = computers[i + 1];
+                            computers[i] = computers[i - 1];
                         }
                         Console.WriteLine("Computer {0}", pos + 1);
                         Console.WriteLine("Brand: {0}", computers[pos].brand);
                         Console.WriteLine("Model: {0}", computers[pos].model);
                         Console.WriteLine("Year unknown");
-                        Console.WriteLine("Year: {0}", 
+                        Console.WriteLine("Year: {0}",
                             computers[pos].year);
-                        Console.WriteLine("Memory: {0} {1}", 
-                            computers[pos].memory.size, 
-                            computers[pos].memory.measure);
-                        Console.WriteLine("Comments: {0}", 
+                        Console.WriteLine("Memory: {0} {1}",
+                            computers[pos].memory.size,
+                            computers[pos].memory.unit);
+                        Console.WriteLine("Comments: {0}",
                             computers[pos].comments);
                     }
                     break;
-                case "7":
-                    for(int i = 0; i < count - 1; i++)
+
+                case "7":   // Sort
+                    for (int i = 0; i < count - 1; i++)
                     {
-                        for(int j = i + 1; j < count; j++)
+                        for (int j = i + 1; j < count; j++)
                         {
-                            if(String.Compare(computers[i].brand, 
-                                computers[j].brand, true) > 0 && 
-                                String.Compare(computers[i].model, 
-                                computers[j].model, true) > 0)
+                            if (String.Compare(computers[i].brand+ computers[i].model,
+                                computers[j].brand+ computers[j].model, true) > 0)
                             {
                                 Computer temp = computers[i];
                                 computers[i] = computers[j];
@@ -286,20 +294,22 @@ public class Ex192
                         }
                     }
                     break;
-                case "8":
-                    for(int i = 0; i < count; i++)
+
+                case "8":   // Normalize descriptions
+                    for (int i = 0; i < count; i++)
                     {
-                        computers[i].brand.TrimStart().TrimEnd();
-                        computers[i].model.TrimStart().TrimEnd();
-                        computers[i].comments.TrimStart().TrimEnd();
+                        computers[i].brand = computers[i].brand.Trim();
+                        computers[i].model = computers[i].model.Trim();
+                        computers[i].comments = computers[i].comments.Trim();
                     }
                     break;
-                case "q":
+
+                case "q":   // Quit
                 case "Q":
                     finished = true;
                     break;
             }
-        }while(!finished);
+        } while (!finished);
         Console.WriteLine("Bye!");
     }
 }
