@@ -1,5 +1,5 @@
 /*
-Create a C# program that can store up to 600 records of classical computers. 
+Create a C# program that can store up to 600 records of classical computers.
 For each computer, you must keep the following data:
 
 • Brand Name (eg Amstrad)
@@ -14,37 +14,37 @@ For each computer, you must keep the following data:
 
 The program should allow the user the following operations:
 
-1 - Add a new computer data (the brand must not be empty, the model should not 
-occupy more than 50 letters, and if any of them is not valid, it must be 
-entered again. If the year is before 1900, it should be stored as 0, to 
+1 - Add a new computer data (the brand must not be empty, the model should not
+occupy more than 50 letters, and if any of them is not valid, it must be
+entered again. If the year is before 1900, it should be stored as 0, to
 indicate that it is not valid).
 
-2 - Show all brands and models of computers stored. Each computer (brand and 
-model) should appear on one line, separated by a hyphen (eg "Amstrad - CPC664"). 
-The program should pause after displaying each block of 24 computers, display 
+2 - Show all brands and models of computers stored. Each computer (brand and
+model) should appear on one line, separated by a hyphen (eg "Amstrad - CPC664").
+The program should pause after displaying each block of 24 computers, display
 the message "Press Enter to continue" and wait until the user presses Enter.
 The user should be notified if there is no data.
 
-3 - Search for computers that contain a certain text (as part of its brand, 
-model or comments, case insensitive). If the year is 0, it should display: 
-"Year: unknown." Data must be displayed on separate lines, with an extra blank 
+3 - Search for computers that contain a certain text (as part of its brand,
+model or comments, case insensitive). If the year is 0, it should display:
+"Year: unknown." Data must be displayed on separate lines, with an extra blank
 line after each computer. The user should be notified if none is found.
 
-4 - Update a record (the program will ask for the number, will display the 
-previous value of each field and the user can press Enter not to modify any of 
-the data). The user should be warned (but not asked again) if he enters an 
+4 - Update a record (the program will ask for the number, will display the
+previous value of each field and the user can press Enter not to modify any of
+the data). The user should be warned (but not asked again) if he enters an
 incorrect record number. It is not necessary to validate any of the fields.
 
-5 - Delete some data, in the position indicated by the user. The user should be 
+5 - Delete some data, in the position indicated by the user. The user should be
 warned (but not asked again) if he enters an incorrect record number.
 
-6 - Insert data in a position chosen by the user (by moving the rest of the 
-records to the right). The user should be warned (but not asked again) if he 
+6 - Insert data in a position chosen by the user (by moving the rest of the
+records to the right). The user should be warned (but not asked again) if he
 enters an incorrect record number.
 
 7 - Sort the data alphabetically by brand+model.
 
-8 - Remove extra spaces (initial and final spaces in all the brands, models and 
+8 - Remove extra spaces (initial and final spaces in all the brands, models and
 comments. For example, a comment like " Test Data " would become "Test Data".
 
 Q - Quit (end the application; as we do not store the information, will be lost).
@@ -266,16 +266,19 @@ public class Ex192
                             computers[i] = computers[i - 1];
                         }
                         Console.WriteLine("Computer {0}", pos + 1);
-                        Console.WriteLine("Brand: {0}", computers[pos].brand);
-                        Console.WriteLine("Model: {0}", computers[pos].model);
-                        Console.WriteLine("Year unknown");
-                        Console.WriteLine("Year: {0}",
-                            computers[pos].year);
-                        Console.WriteLine("Memory: {0} {1}",
-                            computers[pos].memory.size,
-                            computers[pos].memory.unit);
-                        Console.WriteLine("Comments: {0}",
-                            computers[pos].comments);
+                        Console.Write("Brand: ");
+                        computers[pos].brand = Console.ReadLine();
+                        Console.Write("Model: ");
+                        computers[pos].model = Console.ReadLine();
+                        Console.Write("Year: ");
+                        computers[pos].year = Convert.ToUInt16(Console.ReadLine());
+                        Console.Write("Memory type: ");
+                        computers[pos].memory.unit = Console.ReadLine();
+                        Console.Write("Memory size: ");
+                        computers[pos].memory.size = Convert.ToUInt16(Console.ReadLine());
+                        Console.Write("Comments: ");
+                        computers[pos].comments = Console.ReadLine();
+                        count++;
                     }
                     break;
 
