@@ -2,4 +2,4 @@
 
 ## Chapter 5
 
-Exercises of chapter 5
+Exercises of chapter 5: Functions
