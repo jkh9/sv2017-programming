@@ -76,10 +76,10 @@ public class ex190
         {
             Console.WriteLine("1. Add expense");
             Console.WriteLine("2. Show expense");
-            Console.WriteLine("3. Search by category");
+            Console.WriteLine("3. Search");
             Console.WriteLine("4. Modify movement data");
             Console.WriteLine("5. Delete movement");
-            Console.WriteLine("6. Order alphabetically");
+            Console.WriteLine("6. Sort alphabetically");
             Console.WriteLine("7. Normalize descriptions");
             Console.WriteLine("t. Exit");
             Console.Write("Option: ");
@@ -100,7 +100,7 @@ public class ex190
                             year = Console.ReadLine();
                         }
                         while ((Convert.ToInt32(year) < 1000) ||
-                            (Convert.ToInt32(year) > 2000));
+                            (Convert.ToInt32(year) > 3000));
 
                         do
                         {
@@ -109,6 +109,8 @@ public class ex190
                         }
                         while ((Convert.ToInt32(month) < 1) ||
                             (Convert.ToInt32(month) > 12));
+                        if (month.Length == 1)
+                            month = "0" + month;
 
                         do
                         {
@@ -117,7 +119,8 @@ public class ex190
                         }
                         while ((Convert.ToInt32(day) < 1) ||
                             (Convert.ToInt32(day) > 31));
-
+                        if (day.Length == 1)
+                            day = "0" + day;
                         movements[cont].date = year + month + day;
 
                         do
@@ -205,7 +208,7 @@ public class ex190
                                     if (contSpaces <= 6)
                                         Console.Write(c);
                                 }
-
+                                Console.WriteLine();
                                 found = true;
                             }
                         }
@@ -282,7 +285,7 @@ public class ex190
                     {
                         for (int j = i + 1; j < cont; j++)
                         {
-                            if (movements[i].date.CompareTo(movements[j].date) 
+                            if (movements[i].date.CompareTo(movements[j].date)
                                 > 0)
                             {
                                 ig aux = movements[j];
@@ -319,7 +322,7 @@ public class ex190
                             movements[i].description.ToUpper())
                         {
                             movements[i].description =
-                                movements[i].description.Substring(0, 1).ToUpper()+
+                                movements[i].description.Substring(0, 1).ToUpper() +
                                 movements[i].description.Substring(1).ToLower();
                         }
                     }
