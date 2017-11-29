@@ -14,7 +14,7 @@ public class FunctionIsInteger
         
         foreach (char c in text)
         {
-            if ( ! valid.Contains(c) ) return false;
+            if ( ! valid.Contains(""+c) ) return false;
         }
         return true;
     }
