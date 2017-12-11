@@ -1,0 +1,31 @@
+* El usuario mueve un personaje (Pac-man)
+
+* Hay 4 fantasmas que se mueven.
+
+* El personaje y los fantasmas se mueven por pasillos delimitados por paredes y que contienen bolitas y bolas grandes
+
+* Cada fantasma tienen un movimiento parcialmente distinto.
+
+* Los fantasmas salen de una "casa" en el centro de la pantalla
+
+* El personaje come "bolitas" que hay distribuidas por la pantalla de juego.
+
+* El personaje puede comer bolas "grandes", que le permiten comer fantasmas durante un tiempo; al cabo de ese tiempo, los fantasmas vuelven a perseguir al jugador; durante ese tiempo, cambian de color (azul), huyen del personaje, se mueven más lento y vuelven al centro si se mueren (si el personaje "se los come").
+
+* El personaje tiene 3 vidas y pierde una cada vez que choca con un fantasma (excepto si acaba de comer un "bola grande").
+
+* A veces aparecen frutas que se pueden comer y dan puntuación extra.
+
+* ¿Si se consiguen las 6 frutas se obtiene una vida extra?
+
+* Cuando ee jugador se come todas las bolitas, avanza al siguiente nivel (en el que vuelven a aparecen todas las bolitas).
+
+* El personaje avanza automáticamente hasta que choca con una pared.
+
+* Existe un pantalla de bienvenida que muestra los fantasmas, su nombre y color.
+
+* Si el jugador espera en la pantalla de bienvenida, se pone en marcha un Demo.
+
+* Se anota la puntuación actual y se guarda la puntuación máxima.
+
+* Existe un modo de dos jugadores, con turnos alternativos.
