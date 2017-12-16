@@ -5,6 +5,8 @@
 
 // Versions:
 // V0.01 13-Dic-2017 Nacho: Almost empty skeleton
+// V0.02 14-Dic-2017 Gonzalo, Victor, Miguel: Constructor, player movement, calling 
+// other functions.
 
 /// <summary>
 ///  A class that represents ...
@@ -12,6 +14,9 @@
 ///  @see OtherClasses
 ///  @author your_name_here
 /// </summary>
+
+using System;
+
 public class Game
 {
     // Attributes
@@ -23,6 +28,15 @@ public class Game
     private OrangeGhost myOrangeGhost;
     private Player myPlayer;
     private Level myLevel;
+
+    // Constructor
+
+    public Game()
+    {
+        myOrangeGhost = new OrangeGhost();
+        myPlayer = new Player();
+        myLevel = new Level();
+    }
 
     // Operations
 
@@ -45,14 +59,39 @@ public class Game
     // --- Checking keyboard, mouse and joystick -----
     private void checkInput()
     {
-        // TO DO
+        ConsoleKeyInfo key;
+        if (Console.KeyAvailable)
+        {
+            do
+            {
+                key = Console.ReadKey();
+            } while (Console.KeyAvailable);
+
+            if (key.Key == ConsoleKey.LeftArrow)
+            {
+                myPlayer.MoveLeft();
+            }
+            else if (key.Key == ConsoleKey.RightArrow)
+            {
+                myPlayer.MoveRight();
+            }
+            else if (key.Key == ConsoleKey.UpArrow)
+            {
+                myPlayer.MoveUp();
+            }
+            else if (key.Key == ConsoleKey.DownArrow)
+            {
+                myPlayer.MoveDown();
+            }
+        }
     }
 
 
     // --- Animating enemies and other "self moving" objects -----
     private void moveElements()
     {
-        // TO DO
+        myPlayer.Move();
+        myOrangeGhost.Move();
     }
 
 
@@ -66,7 +105,8 @@ public class Game
     // --- Drawing all the visible elements ---
     private void drawElements()
     {
-        // TO DO
+        myPlayer.Display();
+        myOrangeGhost.Display();
     }
 
 
