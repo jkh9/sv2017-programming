@@ -5,12 +5,22 @@
 
 // Versions:
 // V0.01 13-Dic-2017 Nacho: Almost empty skeleton
+// V0.03 07-Ene-2018 Nacho: Example on how to draw the data of the level
 
 using System;
 
 public class Level
 {
     // Associations
+    string[] mapData =
+    {
+        "+------------++------------+",
+        "|............||............|",
+        "|.+--+.+---+.||.+---+.+--+.|",
+        "|o|  |.|   |.||.|   |.|  |o|",
+        "|.+--+.+---+.++.+---+.+--+.|",
+        "|..........................|",
+    };
 
     // public Game  myGame;
 
@@ -28,6 +38,26 @@ public class Level
 
     public  void Display()
     {
-        Console.WriteLine("Level!");
+        foreach (string line in mapData)
+        {
+            foreach(char c in line)
+            {
+                if (c == '.')
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                }
+                else if (c == 'o')
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                }
+                Console.Write(c);
+            }
+            Console.WriteLine();
+        }
+        // Console.WriteLine("Level!");
     }
 } /* end class Level */

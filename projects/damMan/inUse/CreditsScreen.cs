@@ -5,13 +5,15 @@
 
 // Versions:
 // V0.01 13-Dic-2017 Nacho: Almost empty skeleton
-// V0.02 14-Dic-2017 Moisés, Raúl, Marcos things
+// V0.02 14-Dic-2017 Moisés, Raúl, Marcos: things (???)
+// V0.03 20-Dic-2017 Guillermo, Raúl, Marcos: a little more text
 
 using System;
 
 public class CreditsScreen
 {
-    string[] names = { "Moisés", "Raúl", "Marcos" };
+    string[] names = {"Creditos", "Moisés", "Raúl", "Marcos"
+                    , "Diseñadores del juego", "Guille", "Raúl", "Marcos"};
 
     public void Run()
     {
@@ -21,7 +23,7 @@ public class CreditsScreen
         for (int i = 0; i < 24 - (names.Length) * 2; i++)
         {
             PrintNames(i);
-            System.Threading.Thread.Sleep(50);
+            System.Threading.Thread.Sleep(200);
             Console.Clear();
         }
         PrintFinalScreen();
@@ -36,6 +38,8 @@ public class CreditsScreen
             Console.SetCursorPosition(40 - (names[i].Length / 2), position + i);
             Console.Write(names[i]);
             position++;
+            //    if (i % 4 == 3)
+            //        Console.ReadLine();
         }
 
         Console.WriteLine();

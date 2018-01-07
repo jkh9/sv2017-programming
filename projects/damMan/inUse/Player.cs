@@ -1,15 +1,12 @@
-// FILE: C:/Users/Alumno/Desktop//Player.cs
+// 
+// DamMan
+// Player: PacMan, used by the player  ;-)
+//
 
-// In this section you can add your own using directives
-    // section -64--88-0-60--770fe847:1605036f521:-8000:000000000000088C begin
-    // section -64--88-0-60--770fe847:1605036f521:-8000:000000000000088C end
+// Versions:
+// V0.01 13-Dic-2017 Nacho: Almost empty skeleton
+// V0.03 07-Ene-2018 Nacho: Player can move right
 
-/// <summary>
-    ///  A class that represents ...
-    /// 
-    ///  @see OtherClasses
-    ///  @author your_name_here
-     /// </summary>
 public class Player : Sprite
 {
     // Associations
@@ -21,7 +18,7 @@ public class Player : Sprite
     public  void MoveRight()
     {
         // Note: we should check if we can move
-        // x++;
+        x++;
     }
 
     public  void MoveLeft()

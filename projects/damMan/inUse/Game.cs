@@ -6,14 +6,8 @@
 // Versions:
 // V0.01 13-Dic-2017 Nacho: Almost empty skeleton
 // V0.02 14-Dic-2017 Gonzalo, Victor, Miguel: Constructor, player movement, calling 
-// other functions.
-
-/// <summary>
-///  A class that represents ...
-/// 
-///  @see OtherClasses
-///  @author your_name_here
-/// </summary>
+//         other functions.
+// V0.03 07-Ene-2018 Nacho: Level is displayed. Pause after each frame
 
 using System;
 
@@ -105,6 +99,8 @@ public class Game
     // --- Drawing all the visible elements ---
     private void drawElements()
     {
+        Console.Clear();
+        myLevel.Display();
         myPlayer.Display();
         myOrangeGhost.Display();
     }
@@ -113,7 +109,8 @@ public class Game
     // --- Pause afer each frame (20 ms, for a speed of 50 fps) -----
     private void pauseTillNextFrame()
     {
-        // TO DO
+        // 50 ms pause => 20 fps
+        System.Threading.Thread.Sleep(50);
     }
 
 } /* end class Game */ 

@@ -7,6 +7,7 @@
 // V0.01 13-Dic-2017 Nacho: Almost empty skeleton
 // V0.02 14-Dic-2017 López, Pastor, Puerta: variables
 //  and FunctionRun()
+// V0.03 07-Ene-2018 Nacho: Text "Game" instead of "Exit"
 
 using System;
 
@@ -39,7 +40,7 @@ public class WelcomeScreen
             Console.WriteLine("C. Credits");
             Console.SetCursorPosition(40, 15);
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("X. Exit");
+            Console.WriteLine("G. Game");
             Console.ResetColor();
             char option = Convert.ToChar(Console.ReadLine().ToLower());
 
@@ -63,11 +64,11 @@ public class WelcomeScreen
                     myCreditsScreen.Run();
                     Console.Clear();
                     break;
-                case 'x':
+                case 'g':
                     Console.Clear();
                     Console.SetCursorPosition(40, 15);
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Bye!");
+                    //Console.WriteLine("Bye!");
                     exit = true;
                     break;
                 default:
