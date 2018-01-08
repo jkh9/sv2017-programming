@@ -1,7 +1,7 @@
-﻿/*
-Create a class named “Motorbike”.
-It will have an attribute “wheels”, static, with value 2.
-Create a method named “GetWheels”, to access that attribute.
+/*
+Create a class named "Motorbike".
+It will have an attribute "wheels", static, with value 2.
+Create a method named "GetWheels", to access that attribute.
 Create two motorbikes and display how many wheels they have.
 */
 
