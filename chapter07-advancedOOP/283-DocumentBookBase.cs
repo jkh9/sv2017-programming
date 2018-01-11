@@ -68,7 +68,7 @@ public class Book : Document
     public Book(string title,string author,int pages,char cover) 
         : base(title, author, pages)
     {
-        this.pages = pages;
+        this.cover = cover;
     }
     
     public void SetCover(char newCover)
