@@ -1,0 +1,6 @@
+' Reto 1: "Hola mundo." n veces
+' (version en QBasic)
+INPUT n
+FOR i = 1 TO n
+    PRINT "Hola mundo."
+NEXT i
