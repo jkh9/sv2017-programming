@@ -1,0 +1,16 @@
+' Challenge 002: Side Of The Street
+' 
+' Answer = "DERECHA" if input is even, IZQUIERDA if it is ODD
+' 0 to end
+' 
+INPUT n
+
+WHILE n <> 0
+    IF n MOD 2 = 0 THEN
+        PRINT "DERECHA."
+    ELSE
+        PRINT "IZQUIERDA."
+    END IF
+
+    INPUT n
+WEND
