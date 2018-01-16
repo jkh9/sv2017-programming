@@ -5,12 +5,11 @@
 // V0.02 16-Ene-2018 Nacho: 
 //     Renamed from Animated to AnimatedSprite
 //     Added constructor
-//     Removed unnecessary extra methods
 
-class Rock : StaticSprite
+class StaticSprite : Sprite
 {
-    public Rock(int x, int y)
-        : base(x, y, "M^M")
+    public StaticSprite(int x, int y, string image)
+        : base (x, y, image)
     {
     }
 }
