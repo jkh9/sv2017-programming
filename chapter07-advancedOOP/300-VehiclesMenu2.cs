@@ -137,9 +137,9 @@ public class VehiclesTest
                     if (type == "C")
                         vehicles[amount++] = new Car(brand, model);
                     else if (type == "M")
-                        vehicles[amount++] = new Motorbike(brand, model); ;
+                        vehicles[amount++] = new Motorbike(brand, model);
                     else if (type == "T")
-                        vehicles[amount++] = new Truck(brand, model); ;
+                        vehicles[amount++] = new Truck(brand, model);
                     else
                         Console.WriteLine("Wrong type of vehicle!");
                     break;
