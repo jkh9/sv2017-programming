@@ -11,6 +11,7 @@
 // V0.06 29-Nov-2017 Miguel Puerta: Functions
 // V0.07 29-Nov-2017 Nacho: Simple file usage
 // V0.08 19-Dic-2017 Nacho: Split into classes, most content moved to SalesModule
+// V0.09 17-Ene-2018 Nacho: Date for each transaction is also saved
 
 using System;
 using System.IO;
@@ -20,9 +21,11 @@ public class SalesModule
     public void Run()
     {
         double[] dailyTransactions = new double[1000];
+        DateTime[] dates = new DateTime[1000];
+
         int amountOfTransactions = 0;
 
-        LoadFromFile(ref dailyTransactions,
+        LoadFromFile(ref dailyTransactions,ref dates,
             ref amountOfTransactions);
 
         Console.WriteLine("Hint: Enter the amount sold, "
@@ -45,6 +48,7 @@ public class SalesModule
                     amount = Convert.ToDouble(answer);
                     sum += amount;
                     dailyTransactions[amountOfTransactions] = amount;
+                    dates[amountOfTransactions] = DateTime.Now;
                     amountOfTransactions++;
                 }
                 catch (Exception)
@@ -69,7 +73,7 @@ public class SalesModule
         }
         while (answer != "end");
 
-        SaveToFile(dailyTransactions, amountOfTransactions);
+        SaveToFile(dailyTransactions, dates, amountOfTransactions);
     }
 
 
@@ -81,6 +85,7 @@ public class SalesModule
 
 
     public static void LoadFromFile(ref double[] dailyTransactions,
+        ref DateTime[] dates,
         ref int amountOfTransactions)
     {
         if (File.Exists("pos.dat"))
@@ -88,7 +93,8 @@ public class SalesModule
             string[] dataFromFile = File.ReadAllLines("pos.dat");
             for (int i = 0; i < dataFromFile.Length; i++)
             {
-                dailyTransactions[i] = Convert.ToDouble(dataFromFile[i]);
+                dailyTransactions[i] = Convert.ToDouble(dataFromFile[i].Split('@')[1]);
+                dates[i] = Convert.ToDateTime(dataFromFile[i].Split('@')[0]);
             }
             amountOfTransactions = dataFromFile.Length;
         }
@@ -96,13 +102,14 @@ public class SalesModule
 
 
     public static void SaveToFile(
-        double[] dailyTransactions,
+        double[] dailyTransactions, DateTime[] dates,
         int amountOfTransactions)
     {
         string[] dataToFile = new string[amountOfTransactions];
         for (int i = 0; i < amountOfTransactions; i++)
         {
-            dataToFile[i] = Convert.ToString(dailyTransactions[i]);
+            dataToFile[i] = dates[i] + "@" +
+                Convert.ToString(dailyTransactions[i]);
         }
         File.WriteAllLines("pos.dat", dataToFile);
     }
