@@ -1,11 +1,13 @@
 // 
 // DamMan
-// Player: PacMan, used by the player  ;-)
+// Player: PacMan, used by the player  
 //
 
 // Versions:
 // V0.01 13-Dic-2017 Nacho: Almost empty skeleton
 // V0.03 07-Ene-2018 Nacho: Player can move right
+// v0.04 17-Ene-2018 Luis Sellés, Brandon Blasco, César Martinez, Tania Pigem:
+//            Player can move in four directions
 
 public class Player : Sprite
 {
@@ -15,24 +17,24 @@ public class Player : Sprite
 
     // Operations
 
-    public  void MoveRight()
+    public void MoveRight()
     {
         // Note: we should check if we can move
         x++;
     }
 
-    public  void MoveLeft()
+    public void MoveLeft()
     {
-        // TO DO
+        x--;
     }
 
-    public  void MoveUp()
+    public void MoveUp()
     {
-        // TO DO
+        y--;// TO DO
     }
 
-    public  void MoveDown()
+    public void MoveDown()
     {
-        // TO DO
+        y++;// TO DO
     }
 } /* end class Player */

@@ -6,6 +6,8 @@
 // Versions:
 // V0.01 13-Dic-2017 Nacho: Almost empty skeleton
 // V0.03 07-Ene-2018 Nacho: Example on how to draw the data of the level
+// v0.04 17-Ene-2018 Luis Sellés, Brandon Blasco, César Martinez, Tania Pigem:
+//            More detailed background
 
 using System;
 
@@ -20,27 +22,43 @@ public class Level
         "|o|  |.|   |.||.|   |.|  |o|",
         "|.+--+.+---+.++.+---+.+--+.|",
         "|..........................|",
+        "|.+--+.+--+.....+--+.+---+.|",
+        "|.|..|.|..|.+-+.|..|.|...|.|",
+        "|.+--+.|..|.|.|.|..|.+---+.|",
+        "|......|..|.+-+.|..|.......|",
+        "|.+--+.+--+.....+--+.+---+.|",
+        "|..........................|",
+        "|....|.|.....||.....|.|....|",
+        "|.+--+.+---+.||.+---+.+--+.|",
+        "|o|  |.|   |.||.|   |.|  |o|",
+        "|.+--+.+---+.++.+---+.+--+.|",
+        "|............||............|",
+        "|.+--+.+---+.||.+---+.+--+.|",
+        "|o|  |.|   |.||.|   |.|  |o|",
+        "|.+--+.+---+.++.+---+.+--+.|",
+        "|..........................|",
+        "+------------++------------+",
     };
 
     // public Game  myGame;
 
     // Operations
 
-    public  bool CanMoveTo(int newX, int newY)
+    public bool CanMoveTo(int newX, int newY)
     {
         return true;
     }
 
-    public  bool IsFinished()
+    public bool IsFinished()
     {
         return false;
     }
 
-    public  void Display()
+    public void Display()
     {
         foreach (string line in mapData)
         {
-            foreach(char c in line)
+            foreach (char c in line)
             {
                 if (c == '.')
                 {
