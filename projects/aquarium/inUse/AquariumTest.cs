@@ -13,16 +13,41 @@ class AquariumTest
 {
     static void Main()
     {
-        Fish clownFish = new Fish(5, 10);
-        Bubble b = new Bubble(10, 20);
-        while(true)
+        Random r = new Random();
+        AnimatedSprite[] aniSpr = new AnimatedSprite[10];
+
+        int hei = r.Next(0, 25);
+        int wit = r.Next(3, 78);
+        aniSpr[0] = new GoldFish(wit, hei);
+        hei = r.Next(0, 25);
+        wit = r.Next(3, 78);
+        aniSpr[1] = new Fish(wit, hei);
+        hei = r.Next(0, 25);
+        wit = r.Next(3, 78);
+        aniSpr[2] = new RapeFish(wit, hei);
+        hei = r.Next(0, 25);
+        wit = r.Next(3, 78);
+        aniSpr[3] = new SwordFish(wit, hei);
+        hei = r.Next(0, 25);
+        wit = r.Next(3, 78);
+        aniSpr[4] = new SharkFish(wit, hei);
+
+        for (int i = 5; i < 10; i++)
+        {
+            aniSpr[i] = new Bubble(r.Next(0, 81), r.Next(0, 20));
+        }
+
+        while (true)
         {
             Console.Clear();
-            clownFish.Draw();
-            b.Draw();
-
-            b.Move();
-            clownFish.Move();
+            for (int i = 0; i < 10; i++)
+            {
+                aniSpr[i].Draw();
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                aniSpr[i].Move();
+            }
 
             Thread.Sleep(100); // 100 ms pause
         }
