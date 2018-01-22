@@ -3,6 +3,8 @@
  * 
  *  V0.07 19-Dic-2017 Nacho: Empty skeleton
  *  V0.08 20-Dic-2017 Javier Saorín, Raúl Gogna, Miguel Pastor: Display rooms.
+ *  V0.09 17-Ene-2018 Victor, Miguel Garcia, Miguel Pastor, Gonzalo: Use of the methods of this class
+ *  with the code from Game.
  */
 
 using System;
@@ -11,7 +13,7 @@ public class RoomViewer
 {
     enum orientations { NORTH, EAST, SOUTH, WEST };
 
-    public void Display(int actualOrientation, string[,] map, int x, int y)
+    public void Display(byte actualOrientation, string[,] map, int x, int y)
     {
         if (actualOrientation == (byte)orientations.SOUTH &&
             map[y, x].Contains("D"))

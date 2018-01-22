@@ -8,13 +8,18 @@
  *  V0.05 13-Nov-2017 Marcos Cervantes, Guillermo Pastor: Map as bidim Array
  *  V0.06 13-Nov-2017 Victor Tebar: User can turn and move forward
  *  V0.07 19-Dic-2017 Nacho: Split into classes (all previous code goes to Game)
+ *  V0.09 17-Ene-2018 Victor, Miguel Garcia, Miguel Pastor, Gonzalo: Use of the classes 
+ *  RoomViewer and TextInterface.
+ *  
  */
 
 using System;
 
 public class Game
 {
-    enum orientations { NORTH, EAST, SOUTH, WEST };
+    public enum orientations { NORTH, EAST, SOUTH, WEST };
+    private RoomViewer rv = new RoomViewer();
+    private TextInterface txt = new TextInterface();
 
     public void Run()
     {
@@ -45,78 +50,16 @@ public class Game
             switch (option)
             {
                 case '1':
-                    string answer;
+                    
                     int x = 0, y = 2; // Starting room
                     byte orientation = (byte)orientations.NORTH;
                     do
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine();
-                        Console.WriteLine(" \\                   /");
-                        Console.WriteLine("  \\                 /");
-                        Console.WriteLine("   -----------------");
-                        Console.WriteLine("  |                 |");
-                        Console.WriteLine("  |                 |");
-                        Console.WriteLine("  |        ___      |");
-                        Console.WriteLine("  |       |   |     |");
-                        Console.WriteLine("  |       |   |     |");
-                        Console.WriteLine("   -----------------");
-                        Console.WriteLine("  /                 \\");
-                        Console.WriteLine(" /                   \\");
-                        Console.WriteLine();
-                        Console.ResetColor();
-
-                        Console.Write("You are facing ");
-                        Console.WriteLine((orientations)orientation);
-
-                        if (map[y, x].Contains("U"))
-                            Console.Write("Door North. ");
-                        if (map[y, x].Contains("D"))
-                            Console.Write("Door South. ");
-                        if (map[y, x].Contains("R"))
-                            Console.Write("Door East. ");
-                        if (map[y, x].Contains("L"))
-                            Console.Write("Door West. ");
-                        Console.WriteLine();
-
-                        Console.Write("What now (\"end\" to finish)? ");
-                        answer = Console.ReadLine();
-                        Console.Clear();
-
-                        if (answer.ToLower() == "turn right")
-                        {
-                            orientation++;
-                            if (orientation > 3)
-                                orientation = 0;
-                        }
-                        else if (answer.ToLower() == "turn left")
-                        {
-                            orientation--;
-                            if (orientation < 0)
-                                orientation = 3;
-                        }
-                        else if (answer.ToLower() == "walk")
-                        {
-                            if (orientation == (byte)orientations.SOUTH &&
-                                map[y, x].Contains("D"))
-                                y++;
-                            else if (orientation == (byte)orientations.WEST &&
-                                map[y, x].Contains("L"))
-                                x--;
-                            else if (orientation == (byte)orientations.NORTH &&
-                                map[y, x].Contains("U"))
-                                y--;
-                            else if (orientation == (byte)orientations.EAST &&
-                                map[y, x].Contains("R"))
-                                x++;
-                            else
-                                Console.WriteLine("You can't walk that way");
-                        }
-                        else
-                            Console.WriteLine("Unknown command");
+                        rv.Display(orientation,map,x,y);
+                        txt.Display(map,x,y,orientation);
 
                     }
-                    while (answer != "end");
+                    while (txt.GetCommand(map, ref x, ref y, ref orientation) != "end");
                     break;
                 case '2':
                     Console.WriteLine();
