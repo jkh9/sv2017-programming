@@ -1,15 +1,15 @@
 /*
-Create a simple "english to spanish" dictionary using a SortedList
+Create a simple "english to spanish" dictionary using a Hashtable
 */
 
 using System;
 using System.Collections;
 
-public class Ex344
+public class Ex345
 {
     public static void Main()
     {
-        SortedList myDictionary = new SortedList();
+        Hashtable myDictionary = new Hashtable();
         myDictionary.Add("hello", "hola");
         myDictionary.Add("good bye", "adiós");
         myDictionary.Add("one", "uno");
