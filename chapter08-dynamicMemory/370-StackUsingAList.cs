@@ -47,10 +47,10 @@ public class StackStrTest
             myStack.Push("Data " + i);
         }
         
-        Console.WriteLine((string) myStack.Peek());
-        Console.WriteLine((string) myStack.Pop());
+        Console.WriteLine(myStack.Peek());
+        Console.WriteLine(myStack.Pop());
         Console.WriteLine();
         while (myStack.Count > 0)
-            Console.WriteLine((string)myStack.Pop());
+            Console.WriteLine(myStack.Pop());
     }
 }
