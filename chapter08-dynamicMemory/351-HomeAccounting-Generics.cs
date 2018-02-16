@@ -49,8 +49,8 @@ struct Contabilidad : IComparable
 
     public int CompareTo(Object c2)
     {
-		string fecha2 = ( (Contabilidad) c2).fecha;
-        return fecha.CompareTo(fecha);
+        string fecha2 = ( (Contabilidad) c2 ).fecha;
+        return fecha.CompareTo(fecha2);
     }
 }
 
