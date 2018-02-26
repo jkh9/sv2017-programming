@@ -26,6 +26,7 @@ public class RedundantSpaces
                     while (line.Contains("  "))
                         line = line.Replace("  "," ");
                     output.WriteLine(line);
+                    line = input.ReadLine();
                 } 
                 output.Close();
                 input.Close();
