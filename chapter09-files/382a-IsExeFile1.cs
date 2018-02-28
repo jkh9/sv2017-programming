@@ -34,6 +34,7 @@ public class ExeOrNotExe
                 {
                     secondLetterCorrect = true;
                 }
+                myFile.Close();
 
                 if (firstLetterCorrect && secondLetterCorrect)
                 {
