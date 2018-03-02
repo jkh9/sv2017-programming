@@ -14,24 +14,21 @@
 // V0.09 17-Ene-2018 Nacho: Date for each transaction is also saved
 // V0.11 28-Feb-2018 Guillermo Pastor, Pedro Luis Coloma, Renata Pestana, Javier Cases: 
 //         Arrays replaced for Lists<struct>
+// V0.12 02-Mar-2018 Nacho: Changed List<Sell> to List<Transaction>
 
 using System;
 using System.IO;
 using System.Collections.Generic;
 
-public struct Sells
-{
-    public double dailyTransaction;
-    public DateTime date;
-}
 
 public class SalesModule
 {
+    protected static List<Transaction> transactions;
+
     public void Run()
     {
-        List<Sells> transaction = new List<Sells>();
-
-        transaction = LoadFromFile(transaction);
+        transactions = new List<Transaction>();
+        LoadFromFile();
 
         Console.WriteLine("Hint: Enter the amount sold, "
             + "press Enter to get the total, or "
@@ -50,11 +47,10 @@ public class SalesModule
 
                 try
                 {
-                    Sells s;
                     amount = Convert.ToDouble(answer);
                     sum += amount;
-                    s.dailyTransaction = amount;
-                    s.date = DateTime.Now;
+                    DateTime d = DateTime.Now;
+                    transactions.Add(new Transaction(d, amount));
                 }
                 catch (Exception)
                 {
@@ -69,16 +65,16 @@ public class SalesModule
             if (answer == "total")
             {
                 double total = 0;
-                for (int i = 0; i < transaction.Count; i++)
+                for (int i = 0; i < transactions.Count; i++)
                 {
-                    total += transaction[i].dailyTransaction;
+                    total += transactions[i].GetAmount();
                 }
                 Console.WriteLine("Daily total: " + total);
             }
         }
         while (answer != "end");
 
-        SaveToFile(transaction);
+        SaveToFile();
     }
 
 
@@ -89,32 +85,33 @@ public class SalesModule
     }
 
 
-    public static List<Sells> LoadFromFile(List<Sells> temp)
+    public static void LoadFromFile()
     {
         if (File.Exists("pos.dat"))
         {
             string[] dataFromFile = File.ReadAllLines("pos.dat");
-            for (int i = 0; i < dataFromFile.Length; i++)
+            StreamReader file = new StreamReader("pos.dat");
+            string line = file.ReadLine();
+            while (line != null)
             {
-                Sells s;
-                s.dailyTransaction = Convert.ToDouble(dataFromFile[i].Split('@')[1]);
-                s.date = Convert.ToDateTime(dataFromFile[i].Split('@')[0]);
-                temp.Add(s);
+                DateTime d = Convert.ToDateTime(line.Split('@')[0]);
+                double amount = Convert.ToDouble(line.Split('@')[1]);
+                transactions.Add(new Transaction(d, amount));
+                line = file.ReadLine();
             }
-            return temp;
+            file.Close();
         }
-        return temp;
     }
 
 
-    public static void SaveToFile(List<Sells> temp)
+    public static void SaveToFile()
     {
-        string[] dataToFile = new string[temp.Count];
-        for (int i = 0; i < temp.Count; i++)
+        StreamWriter file = new StreamWriter("pos.dat");
+        foreach (Transaction t in transactions)
         {
-            dataToFile[i] = temp[i].date + "@" +
-                Convert.ToString(temp[i].dailyTransaction);
+            file.WriteLine(t.GetDate() + "@" +
+                t.GetAmount());
         }
-        File.WriteAllLines("pos.dat", dataToFile);
+        file.Close();
     }
 }

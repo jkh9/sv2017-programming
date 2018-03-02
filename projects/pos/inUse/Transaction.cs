@@ -1,29 +1,27 @@
-﻿// V0.10 17-Ene-2018, Sabater, Pestana, Saorin, Santana
+﻿// 
+// Point of sale
+//
+
+// V0.10 17-Ene-2018, Sabater, Pestana, Saorin, Santana
 //          Created class Transaction
+// V0.12 02-Mar-2018 Nacho: Added "amount", removed [] in products
 
 using System;
 
-class Transaction
+public class Transaction
 {
-    protected Product[] products;
-    DateTime date;
+    protected DateTime date;
+    protected double amount;
+    protected Product product; // Not used yet
 
-    public Transaction(Product[] products, DateTime date)
+    public Transaction(DateTime date, double amount)
     {
         this.date = date;
-        this.products = products;
-    }
-
-    public void Add()
-    {
-        // TODO
+        this.amount = amount;
     }
 
     public DateTime GetDate() { return date; }
-
     public void SetDate(DateTime date) { this.date = date; }
-
-    public Product[] GetProducts() { return products; }
-
-    public void SetProducts(Product[] products) { this.products = products; }
+    public double GetAmount() { return amount; }
+    public void SetAmount(double amount) { this.amount = amount; }
 }

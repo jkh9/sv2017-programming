@@ -6,6 +6,7 @@
 // V0.08 19-Dic-2017 Nacho: Empty skeleton
 // V0.09 20-Dic-2017 Santana & ?: Stats for a day
 //       17-Ene-2018 Nacho: Date for each transaction is also saved
+// V0.12 02-Mar-2018 Nacho: The "view totals" option now shows the totals ;-)
 
 using System;
 using System.IO;
@@ -28,15 +29,20 @@ public class AdminModule
             {
                 string date;
                 Console.Write("Enter the date to search (DD/MM/AAAA): ");
+                double total = 0;
                 date = Console.ReadLine();
                 string[] dataFromFile = File.ReadAllLines("pos.dat");
                 for (int i = 0; i < dataFromFile.Length; i++)
                 {
-                    string[] fields = dataFromFile[i].Split(' ');
-                    if (fields[0] == date)
+                    string[] parts = dataFromFile[i].Split('@');
+                    string[] dateAndTime = parts[0].Split(' ');
+                    if (dateAndTime[0] == date)
+                    {
                         Console.WriteLine(dataFromFile[i].Replace("@", "  "));
-
+                        total += Convert.ToDouble(parts[1]);
+                    }
                 }
+                Console.WriteLine("Total: "+total);
             }
         }
         while (answer != "end");

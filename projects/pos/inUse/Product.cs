@@ -1,10 +1,11 @@
 ﻿// V0.10 17-Ene-2018, Sabater, Pestana, Saorin, Santana
 //          Created class Product
+// V0.12 02-Mar-2018 Nacho: The class is now public, removed Save and Load
 
 using System.IO;
 using System;
 
-class Product
+public class Product
 {
     protected int code;
     protected string name;
@@ -48,36 +49,4 @@ class Product
         price = newprice;
     }
 
-    public static void LoadFromFile(ref int code,
-        ref string name,
-        ref float price,
-        Product[] products,
-        ref int amountOfProducts)
-    {
-        if (File.Exists("products.dat"))
-        {
-            string[] dataFromFile = File.ReadAllLines("products.dat");
-            for (int i = 0; i < dataFromFile.Length; i++)
-            {
-                products[i].code = Convert.ToInt32(dataFromFile[i].Split('#')[0]);
-                products[i].name = dataFromFile[i].Split('#')[1];
-                products[i].price = Convert.ToSingle(dataFromFile[i].Split('#')[2]);
-            }
-            amountOfProducts = dataFromFile.Length;
-        }
-    }
-
-
-    public static void SaveToFile(
-        int code, string name,
-        float price, int amountOfProducts)
-    {
-        string[] dataToFile = new string[amountOfProducts];
-
-        for (int i = 0; i < amountOfProducts; i++)
-        {
-            dataToFile[i] = code + "#" + name + "#" + price;
-        }
-        File.WriteAllLines("products.dat", dataToFile);
-    }
 }
