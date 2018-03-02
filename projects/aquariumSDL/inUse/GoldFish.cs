@@ -1,32 +1,14 @@
-﻿// V0.01 20-Dic-2017 
-// Guillermo Pator, Daniel Miquel, Querubin Santana
-// Sabater, Lopez, Rebollo
+﻿//V0.03 17-Ene-2018 
+//  Daniel Miquel.Luis Martin-Montalvo, Jose Vilaplana, Javier Herreros, Lucía Navarro
+//      Added new fish GoldFish
 
-// V0.02 16-Ene-2018 Nacho: 
-//     Added a bubble
-//     Pause after each frame
+// V0.05 02-Mar-2018 Nacho: 
+//     Converted to a Graphic Sprite
 
-//v0.03 28-feb-2018
-//     Ángel Rebollo Berná, Almudena Lopez Sanchez, Daniel Miquel Sirera
-//     Added Support for Sdl libraries
-//     Added class Hardware and image
-//     Created constructor on Hardware and Image clases
-//     Included Sprites for all Fishes
 class GoldFish : Fish
 {
-    public GoldFish(int x, int y)
-        : base(x, y)
+    public GoldFish(short x, short y)
+        : base("images/pes5_flip.png", "images/pes5.png", x, y, 128, 106, 10)
     {
-        image = "><$";
-        speed = 1;
-    }
-
-    public override void Move()
-    {
-        base.Move();
-        if (speed > 0)
-            image = "><$";
-        else
-            image = "$><";
     }
 }

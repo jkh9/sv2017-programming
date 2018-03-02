@@ -3,19 +3,17 @@
 // Sabater, Lopez, Rebollo
 
 // V0.02 16-Ene-2018 Nacho: 
-//     Added a bubble
-//     Pause after each frame
+//     Renamed from Animated to AnimatedSprite
+//     Added constructor
+//     Removed unnecessary extra methods
 
-//v0.03 28-feb-2018
-//     Ángel Rebollo Berná, Almudena Lopez Sanchez, Daniel Miquel Sirera
-//     Added Support for Sdl libraries
-//     Added class Hardware and image
-//     Created constructor on Hardware and Image clases
-//     Included Sprites for all Fishes
+// V0.05 02-Mar-2018 Nacho: 
+//     Converted to a Graphic Sprite
+
 class Rock : StaticSprite
 {
-    public Rock(int x, int y)
-        : base(x, y, "M^M")
+    public Rock(short x, short y)
+        : base("images/algas2.png", x, y, 118, 128)
     {
     }
 }

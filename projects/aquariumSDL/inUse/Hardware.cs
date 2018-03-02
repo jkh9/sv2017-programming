@@ -1,20 +1,5 @@
-﻿// V0.01 20-Dic-2017 
-// Guillermo Pator, Daniel Miquel, Querubin Santana
-// Sabater, Lopez, Rebollo
-
-// V0.02 16-Ene-2018 Nacho: 
-//     Added a bubble
-//     Pause after each frame
-
-//v0.03 28-feb-2018
-//     Ángel Rebollo Berná, Almudena Lopez Sanchez, Daniel Miquel Sirera
-//     Added Support for Sdl libraries
-//     Added class Hardware and image
-//     Created constructor on Hardware and Image clases
-//     Included Sprites for all Fishes
-using System;
+﻿using System;
 using Tao.Sdl;
-
 
 class Hardware
 {
@@ -72,5 +57,26 @@ class Hardware
         Sdl.SDL_Rect source = new Sdl.SDL_Rect(0, 0, screenWidth, screenHeight);
         Sdl.SDL_FillRect(screen, ref source, 0);
     }
+
+    // Checks if a given key is now being pressed
+    public bool IsKeyPressed(int key)
+    {
+        bool pressed = false;
+        Sdl.SDL_PumpEvents();
+        Sdl.SDL_Event evt;
+        Sdl.SDL_PollEvent(out evt);
+        int numKeys;
+        byte[] keys = Sdl.SDL_GetKeyState(out numKeys);
+        if (keys[key] == 1)
+            pressed = true;
+        return pressed;
+    }
+
+    public const int KEY_ESC = Sdl.SDLK_ESCAPE;
+    public const int KEY_UP = Sdl.SDLK_UP;
+    public const int KEY_DOWN = Sdl.SDLK_DOWN;
+    public const int KEY_LEFT = Sdl.SDLK_LEFT;
+    public const int KEY_RIGHT = Sdl.SDLK_RIGHT;
+    public const int KEY_SPACE = Sdl.SDLK_SPACE;
 }
 

@@ -3,27 +3,24 @@
 // Sabater, Lopez, Rebollo
 
 // V0.02 16-Ene-2018 Nacho: 
-//     Added a bubble
-//     Pause after each frame
+//     Renamed from Animated to AnimatedSprite
+//     Added constructor, Move
 
-//v0.03 28-feb-2018
-//     Ángel Rebollo Berná, Almudena Lopez Sanchez, Daniel Miquel Sirera
-//     Added Support for Sdl libraries
-//     Added class Hardware and image
-//     Created constructor on Hardware and Image clases
-//     Included Sprites for all Fishes
+// V0.05 02-Mar-2018 Nacho: 
+//     Converted to a Graphic Sprite
 
 class Bubble : AnimatedSprite
 {
-    public Bubble(int x, int y)
-        : base(x, y, "o", -1)
+    public Bubble(short x, short y)
+        : base("images/bubble.png", "images/bubble.png", x, y, 30, 30, -5)
     {
     }
 
     public override void Move()
     {
-        y += speed;
-        if (y < 1)
-            y = 22;
+        // TO DO: screen width should not be a magic number
+        Y += speed;
+        if (Y < 1)
+            Y = 600;
     }
 }

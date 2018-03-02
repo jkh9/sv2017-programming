@@ -3,29 +3,33 @@
 // Sabater, Lopez, Rebollo
 
 // V0.02 16-Ene-2018 Nacho: 
-//     Added a bubble
-//     Pause after each frame
+//     Renamed from Animated to AnimatedSprite
+//     Added constructor
+//     Removed "direction": speed can be negative
+//     Updated Move
 
-//v0.03 28-feb-2018
-//     Ángel Rebollo Berná, Almudena Lopez Sanchez, Daniel Miquel Sirera
-//     Added Support for Sdl libraries
-//     Added class Hardware and image
-//     Created constructor on Hardware and Image clases
-//     Included Sprites for all Fishes
+// V0.05 02-Mar-2018 Nacho: 
+//     Converted to a Graphic Sprite
+
 class AnimatedSprite : Sprite
 {
-    protected int speed;
+    protected short speed;
 
-    public AnimatedSprite(int x, int y, string image, int speed)
-        : base(x, y, image)
+    public AnimatedSprite(string filenameRight, string filenameLeft,
+            short x, short y, short width, short height, short speed)
+        : base(filenameRight, filenameLeft, x, y, width, height)
     {
         this.speed = speed;
     }
 
     public virtual void Move()
     {
-        x += speed;
-        if ((x < 2) || (x > 78 - image.Length))
-            speed = -speed;
+        // TO DO: screen width should not be a magic number
+        X += speed;
+        if ((X < 2) || (X > 800 - width))
+        {
+            speed = (short)-speed;
+            lookingLeft = ! lookingLeft;
+        }
     }
 }

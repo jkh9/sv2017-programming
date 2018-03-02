@@ -3,19 +3,16 @@
 // Sabater, Lopez, Rebollo
 
 // V0.02 16-Ene-2018 Nacho: 
-//     Added a bubble
-//     Pause after each frame
+//     Renamed from Animated to AnimatedSprite
+//     Added constructor
 
-//v0.03 28-feb-2018
-//     Ángel Rebollo Berná, Almudena Lopez Sanchez, Daniel Miquel Sirera
-//     Added Support for Sdl libraries
-//     Added class Hardware and image
-//     Created constructor on Hardware and Image clases
-//     Included Sprites for all Fishes
-class Plant : AnimatedSprite
+// V0.05 02-Mar-2018 Nacho: 
+//     Converted to a Graphic Sprite
+
+class Plant : StaticSprite
 {
-    public Plant(int x, int y, string image)
-        : base(x, y, image, 0)
+    public Plant(short x, short y)
+        : base("images/algas1.png", x, y, 118, 128)
     {
     }
 }

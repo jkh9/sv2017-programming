@@ -3,34 +3,25 @@
 // Sabater, Lopez, Rebollo
 
 // V0.02 16-Ene-2018 Nacho: 
-//     Added a bubble
-//     Pause after each frame
+//     Renamed from Animated to AnimatedSprite
+//     Added constructor
+//     Updated Move
+//     Removed unnecessary extra methods
 
-//v0.03 28-feb-2018
-//     Ángel Rebollo Berná, Almudena Lopez Sanchez, Daniel Miquel Sirera
-//     Added Support for Sdl libraries
-//     Added class Hardware and image
-//     Created constructor on Hardware and Image clases
-//     Included Sprites for all Fishes
-using System;
+// V0.05 02-Mar-2018 Nacho: 
+//     Converted to a Graphic Sprite
 
-class Fish : AnimatedSprite
+abstract class Fish : AnimatedSprite
 {
-    protected string type;
-    protected string color;
 
-    public Fish(int x, int y)
-        : base(x, y, "><>", 1)
+    public Fish(string filenameRight, string filenameLeft,
+            short x, short y, short width, short height, short speed)
+        : base(filenameRight, filenameLeft, x, y, width, height, speed)
     {
     }
 
     public override void Move()
     {
         base.Move();
-        if (speed > 0)
-            image = "><>";
-        else
-            image = "<><";
     }
-
 }

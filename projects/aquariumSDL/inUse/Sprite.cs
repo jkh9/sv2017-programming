@@ -6,46 +6,60 @@
 //     Renamed from Animated to AnimatedSprite
 //     Added constructor
 
-using System;
-// V0.01 20-Dic-2017 
-// Guillermo Pator, Daniel Miquel, Querubin Santana
-// Sabater, Lopez, Rebollo
+// V0.05 02-Mar-2018 Nacho: 
+//     Converted to a Graphic Sprite, loosely based on Gauntlet skeleton
 
-// V0.02 16-Ene-2018 Nacho: 
-//     Added a bubble
-//     Pause after each frame
+using System.Collections.Generic;
 
-//v0.03 28-feb-2018
-//     Ángel Rebollo Berná, Almudena Lopez Sanchez, Daniel Miquel Sirera
-//     Added Support for Sdl libraries
-//     Added class Hardware and image
-//     Created constructor on Hardware and Image clases
-//     Included Sprites for all Fishes
-using Tao.Sdl;
-
-
-public class Sprite
+class Sprite
 {
-    
-    protected int x, y;
-    protected string image;
+    public short X { get; set; }
+    public short Y { get; set; }
+    public short width { get; set; }
+    public short height { get; set; }
 
-    public Sprite(int x, int y, string image)
+    protected Image imageLeft, imageRight;
+    protected bool lookingLeft = true;
+
+    public Sprite(string filenameRight, string filenameLeft,
+        short x, short y,
+        short width, short height)
     {
-        this.x = x;
-        this.y = y;
-        this.image = image;
+        X = x;
+        Y = y;
+        imageRight = new Image(filenameRight, width, height);
+        imageLeft = new Image(filenameLeft, width, height);
     }
 
-    public void MoveTo(short X, short Y)
+    public void MoveTo(short x, short y)
     {
-        x = X;
-        y = Y;
+        X = x;
+        Y = y;
     }
 
-    public void Draw()
+    public bool CollidesWith(Sprite sp)
     {
-        Console.SetCursorPosition(x, y);
-        Console.Write(image);
+        return (X + width > sp.X && X < sp.X + width &&
+                Y + height > sp.Y && Y < sp.Y + height);
+    }
+
+    public bool CollidesWith(List<Sprite> sprites)
+    {
+        foreach (Sprite sp in sprites)
+            if (this.CollidesWith(sp))
+                return true;
+        return false;
+    }
+
+    public void Draw(Hardware h)
+    {
+        imageLeft.MoveTo(X, Y);
+        imageRight.MoveTo(X, Y);
+        if (lookingLeft)
+            h.DrawImage(imageLeft);
+        else
+            h.DrawImage(imageRight);
+
     }
 }
+
