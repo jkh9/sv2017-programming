@@ -7,33 +7,71 @@
 // V0.01 13-Dic-2017 Nacho: Almost empty skeleton
 // v0.04 17-Ene-2018 Luis Sellés, Brandon Blasco, César Martinez, Tania Pigem:
 //            Methods MoveRight, Left, Up, Down (almost empty)
+// V0.05 28-Feb-2018 Marcos, Jose, Moisés: Added method "Move"
+
+using System;
 
 public class Ghost : Sprite
 {
     // Associations
+    public bool Pasive { get; set; }
+    protected char ghost { get; } = 'n';
 
     // public Game  myGame;
 
     // Operations
-    public void MoveRight()
+    private void MoveRight()
     {
-        // Note: we should check if we can move
         x++;
     }
 
-    public void MoveLeft()
+    private void MoveLeft()
     {
-        // TO DO
+        x--;
     }
 
-    public void MoveUp()
+    private void MoveUp()
     {
-        // TO DO
+        y--;
     }
 
-    public void MoveDown()
+    private void MoveDown()
     {
-        // TO DO
+        y++;
     }
-} 
+
+    public void Move(Level level)
+    {
+        System.Random r = new System.Random();
+        int movement = r.Next(1, 5);
+        switch (movement)
+        {
+            case 1:
+                if (level.CanMoveTo(x + 1, y))
+                    MoveRight();
+                break;
+            case 2:
+                if (level.CanMoveTo(x - 1, y))
+                    MoveLeft();
+                break;
+            case 3:
+                if (level.CanMoveTo(x, y - 1))
+                    MoveUp();
+                break;
+            case 4:
+                if (level.CanMoveTo(x, y + 1))
+                    MoveDown();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public override void ClearCharacter()
+    {
+        Console.SetCursorPosition(x, y);
+        Console.ForegroundColor = ConsoleColor.Black;
+        Console.Write(ghost);
+    }
+}
 /* end class Ghost */

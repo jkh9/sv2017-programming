@@ -8,6 +8,7 @@
 // V0.03 07-Ene-2018 Nacho: Example on how to draw the data of the level
 // v0.04 17-Ene-2018 Luis Sellés, Brandon Blasco, César Martinez, Tania Pigem:
 //            More detailed background
+// V0.05 28-Feb-2018 Marcos, Jose, Moisés: Added CanMoveTo
 
 using System;
 
@@ -44,9 +45,11 @@ public class Level
 
     // Operations
 
+    //Checking if we can move
     public bool CanMoveTo(int newX, int newY)
     {
-        return true;
+        return !(mapData[newY][newX] == '|' || mapData[newY][newX] == '+' ||
+            mapData[newY][newX] == '-');
     }
 
     public bool IsFinished()
@@ -56,17 +59,18 @@ public class Level
 
     public void Display()
     {
+        Console.SetCursorPosition(0, 0);
         foreach (string line in mapData)
         {
             foreach (char c in line)
             {
                 if (c == '.')
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else if (c == 'o')
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {

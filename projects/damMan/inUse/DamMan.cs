@@ -5,6 +5,7 @@
 
 // Versions:
 // V0.01 13-Dic-2017 Nacho: Almost empty skeleton
+// V0.05 28-Feb-2018 Marcos, Jose, Moisés: Cursor Hidden
 
 using System;
 
@@ -32,6 +33,7 @@ public class DamMan
 
     static void Main(string[] args)
     {
+        Console.CursorVisible = false;
         DamMan myPacman = new DamMan();
         myPacman.Run();
     }
