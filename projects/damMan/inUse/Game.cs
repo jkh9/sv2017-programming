@@ -9,6 +9,9 @@
 //         other functions.
 // V0.03 07-Ene-2018 Nacho: Level is displayed. Pause after each frame
 // V0.05 28-Feb-2018 Marcos, Jose, Moisés: Collisions checked
+// V0.06 28-Feb-2018 Brandon Blasco, Cesar Martin, Luis Selles - Corrections by Nacho:
+//         Loading a level from a TXT file
+
 
 using System;
 
@@ -37,7 +40,7 @@ public class Game
         //Implementing the player
         myPlayer = new Player();
         //Implementing the level
-        myLevel = new Level();
+        myLevel = new Level(1);
     }
 
     // Operations

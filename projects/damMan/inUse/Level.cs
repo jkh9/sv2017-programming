@@ -9,39 +9,23 @@
 // v0.04 17-Ene-2018 Luis Sellés, Brandon Blasco, César Martinez, Tania Pigem:
 //            More detailed background
 // V0.05 28-Feb-2018 Marcos, Jose, Moisés: Added CanMoveTo
+// V0.06 28-Feb-2018 Brandon Blasco, Cesar Martin, Luis Selles - Corrections by Nacho:
+//         Loading a level from a TXT file
 
 using System;
+using System.IO;
 
 public class Level
 {
     // Associations
-    string[] mapData =
-    {
-        "+------------++------------+",
-        "|............||............|",
-        "|.+--+.+---+.||.+---+.+--+.|",
-        "|o|  |.|   |.||.|   |.|  |o|",
-        "|.+--+.+---+.++.+---+.+--+.|",
-        "|..........................|",
-        "|.+--+.+--+.....+--+.+---+.|",
-        "|.|..|.|..|.+-+.|..|.|...|.|",
-        "|.+--+.|..|.|.|.|..|.+---+.|",
-        "|......|..|.+-+.|..|.......|",
-        "|.+--+.+--+.....+--+.+---+.|",
-        "|..........................|",
-        "|....|.|.....||.....|.|....|",
-        "|.+--+.+---+.||.+---+.+--+.|",
-        "|o|  |.|   |.||.|   |.|  |o|",
-        "|.+--+.+---+.++.+---+.+--+.|",
-        "|............||............|",
-        "|.+--+.+---+.||.+---+.+--+.|",
-        "|o|  |.|   |.||.|   |.|  |o|",
-        "|.+--+.+---+.++.+---+.+--+.|",
-        "|..........................|",
-        "+------------++------------+",
-    };
+    string[] mapData;
 
-    // public Game  myGame;
+    // Constructor
+    public Level(int number)
+    {
+        mapData = File.ReadAllLines("levels/level" + 
+            number.ToString("000") + ".txt");
+    }
 
     // Operations
 
