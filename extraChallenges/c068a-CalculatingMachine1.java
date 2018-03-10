@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author jkh9L
+ * @author Moises
  */
 public class ChallengeA
 {
@@ -20,15 +20,14 @@ public class ChallengeA
             
             int n1 = Integer.parseInt(parts[0]);
             int n2 = Integer.parseInt(parts[2]);
-            int result = 0;
             
             switch(parts[1])
             {
                 case "+":
-                    result = n1 + n2;
+                    System.out.println(n1 + n2);
                     break;
                 case "-":
-                    result = n1 - n2;
+                    System.out.println(n1 - n2);
                     break;
                 case "/":
                     if(n2 == 0)
@@ -37,16 +36,12 @@ public class ChallengeA
                     }
                     else
                     {
-                        result = n1 / n2;
+                        System.out.println(n1 / n2);
                     }
                     break;
                 case "*":
-                    result = n1 * n2;
+                    System.out.println(n1 * n2);
                     break;
-            }
-            if (n2 != 0)
-            {
-                System.out.println(result);
             }
         }
     }
