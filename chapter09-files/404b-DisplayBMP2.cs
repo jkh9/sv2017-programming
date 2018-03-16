@@ -42,7 +42,6 @@ public class Ex404
                         {
                             data.Add(line);
                             line = "";
-                            Console.WriteLine();
                         }
                         if (bite > 127)
                         {
@@ -63,12 +62,11 @@ public class Ex404
             }
             catch (IOException)
             {
-
+                Console.WriteLine("I/O Error");
             }
-
-            catch (Exception e)
+            catch (Exception)
             {
-
+                Console.WriteLine("Unexpected Error");
             }
         }
     }
