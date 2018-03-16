@@ -299,7 +299,7 @@ public class Ex417
         }
         catch (Exception)
         {
-
+            Console.WriteLine("Data could not be saved!");
         }
     }
 }
