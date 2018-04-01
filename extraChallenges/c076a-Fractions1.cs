@@ -24,10 +24,10 @@ Sample run
 
 Other examples:
 0.4 -> 2 / 5
-0.3125 = 5 / 16
+0.3125 -> 5 / 16
+0.012 -> 3 / 250
 0.6666 -> 3333 / 5000
 0.3333 -> 3333 / 10000
-0.7777 -> 23331 / 30000
 
 (Source: 2005 British Informatics Olympiad, Round 1, Problem 1)
 */
