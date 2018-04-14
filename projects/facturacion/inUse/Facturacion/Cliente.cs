@@ -2,7 +2,11 @@
 
 // Versiones:
 // V0.02a 11-Abr-2018 Raúl Gogna: Propiedades y constructor
+// V0.03a 12-Abr-2018 Raúl Gogna: Serializable
 
+using System;
+
+[Serializable]
 class Cliente
 {
     public string Nombre { get; set; }

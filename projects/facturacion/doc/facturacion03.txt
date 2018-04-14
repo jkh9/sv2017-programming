@@ -1,0 +1,5 @@
+Facturación - 03
+
+Desde la clase "VisorDeClientes" se podrán utilizar las opciones 5 (Añadir), 1 (ir a la ficha anterior, si existe) y 2 (ir a la ficha posterior, si existe), así como la 0 (Terminar).
+
+Al salir del programa se deben guardar en fichero los datos. Al entrar al programa se deben cargar los datos anteriores, si es que existen.
