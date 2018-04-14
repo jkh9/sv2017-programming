@@ -3,6 +3,8 @@
 // Versiones:
 // V0.02a 11-Abr-2018 Raúl Gogna, correcciones por Nacho: Constructor, Add, Get, Count
 // V0.03a 12-Abr-2018 Raúl Gogna, correcciones por Nacho: Serializa y deserializa
+// V0.04a 15-Abr-2018 Nacho: Añadido Set(n, cliente)
+
 
 using System.Collections.Generic;
 using System;
@@ -36,6 +38,19 @@ class ListaDeClientes
         else
         {
             return clientes[n];
+        }
+    }
+
+    public void Set(int n, Cliente c)
+    {
+        if (n >= clientes.Count || n < 0)
+        {
+            return;
+        }
+        else
+        {
+            clientes[n] = c;
+            Guardar();
         }
     }
 

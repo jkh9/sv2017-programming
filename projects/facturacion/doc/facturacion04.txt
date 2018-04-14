@@ -1,0 +1,4 @@
+Facturación - 04
+
+La clase "VisorDeClientes" permitirá también saltar a una cierta ficha a partir de su número (opción 3), modificar la ficha que se está viendo (opción 6) y buscar un cierto texto (opción 4, en todos los campos, preguntando si se quiere buscar desde la ficha actual o desde la primera, y parando cuando encuentre una ficha que contenga ese texto o cuando se recorran todos los datos sin encontrarlo).
+
