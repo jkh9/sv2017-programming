@@ -1,0 +1,11 @@
+Facturación - 01
+
+El proyecto se llamará "Facturacion" y la clase principal, que contendrá "Main", también se llamará "Facturacion". Esta clase tendrá un único método público llamado "Ejecutar", que se lanzará desde Main.
+
+Esta primera entrega debes crear una clase "VisorClientes", con un único método público "Ejecutar".
+
+Esta clase contendrá un struct para guardar datos de cientes (nombre, cif, domicilio, ciudad, código postal, país, teléfono, e-mail, persona de contacto, observaciones) y mostrará una apariencia en pantalla parecida al ejemplo que puedes ver en el aula virtual.
+
+Por ahora, los datos del struct se rellenarán con información prefijada y sólo funcionará la opción 0 (Terminar).
+
+La clase "Facturacion" creará un objeto de la clase "VisorClientes" y llamará a su método "Ejecutar".
