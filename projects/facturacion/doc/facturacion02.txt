@@ -1,0 +1,7 @@
+Facturación - 02
+
+En vez de un struct para cliente, existirá una clase "Cliente", con propiedades para acceder a sus atributos y un constructor para dar valores a todos ellos.
+
+También existirá una clase "ListaDeClientes", que internamente almacenará datos como un List<Cliente>
+
+Esta clase tendrá un método "void Add(Cliente)" para añadir un nuevo cliente, un "Cliente Get(n)" para obtener un cierto cliente a partir de su posición, y una propiedad "Count" para saber cuántos clientes existen. Esos tres métodos deben funcionar (al menos aparentemente), aunque no se podrán usar desde la pantalla principal hasta la siguiente entrega.

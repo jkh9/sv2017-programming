@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cliente.cs" />
     <Compile Include="Facturacion.cs" />
+    <Compile Include="ListaDeClientes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VisorClientes.cs" />
   </ItemGroup>
