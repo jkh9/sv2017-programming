@@ -1,0 +1,5 @@
+﻿Facturación - 05
+
+Existirá una clase "Producto", una clase "ListaDeProductos" y un "VisorDeProductos", con funcionalidades similares a las que ya has creado. Para cada producto, se deberán guardar los datos: código, descripción, categoría, precio de venta, precio de compra, stock (cantidad en almacén), stock mínimo deseado.
+
+La clase "Facturacion" pasará a mostrar un menú que permita escoger entre acceder a Clientes o a Productos.

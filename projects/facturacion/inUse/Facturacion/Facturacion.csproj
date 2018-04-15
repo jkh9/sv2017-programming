@@ -46,8 +46,11 @@
     <Compile Include="Cliente.cs" />
     <Compile Include="Facturacion.cs" />
     <Compile Include="ListaDeClientes.cs" />
+    <Compile Include="ListaDeProductos.cs" />
+    <Compile Include="Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VisorClientes.cs" />
+    <Compile Include="VisorDeProductos.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
