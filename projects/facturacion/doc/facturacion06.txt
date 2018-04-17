@@ -1,0 +1,9 @@
+﻿Facturación - 06
+
+Facturas y líneas, primera aproximación:
+
+Cada factura estará formado por dos partes: una "cabecera" (en esta entrega) y varias "líneas" (en la próxima entrega).
+
+En la "cabecera" (clase "Factura") se guardará el número de la factura, la fecha y el cliente para el que es la factura (al usuario se le preguntará el código del cliente).
+
+Existirá un módulo "VisorDeFacturas", que permitirá añadir una factura a una "ListaDeFacturas" (sólo la cabecera), guardarla y ver la anterior/posterior.

@@ -39,6 +39,10 @@ class Facturacion
                     VisorDeProductos visorProductos = new VisorDeProductos();
                     visorProductos.Ejecutar();
                     break;
+                case 3:
+                    VisorDeFacturas visorFacturas = new VisorDeFacturas();
+                    visorFacturas.Ejecutar();
+                    break;
                 case 0: exit = true; break;
                 default: break;
             }
@@ -87,11 +91,12 @@ class Facturacion
         int y = Console.WindowHeight / 2 - 2;
         string[] options =
         {
-            "Visor de clientes",
-            "Visor de productos"
+                "Visor de clientes",
+                "Visor de productos",
+                "Visor de facturas"
         };
 
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < options.Length; i++)
         {
             Console.SetCursorPosition(x, y + i);
             Console.ForegroundColor = ConsoleColor.White;
@@ -137,11 +142,11 @@ class Facturacion
                     }
                     else
                     {
-                        option = 2;
+                        option = 3;
                     }
                     break;
                 case ConsoleKey.DownArrow:
-                    if (option < 2)
+                    if (option < 3)
                     {
                         option++;
                     }
