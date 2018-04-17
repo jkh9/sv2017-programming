@@ -6,6 +6,9 @@
 // V0.05a 15-Abr-2018 
 //     Moisés, cambios menores por Nacho: 
 //     Menú para "VisorClientes" y "VisorProductos"
+// V0.06a 17-Abr-2018 
+//     Moisés, cambios menores por Nacho: 
+//     El menú para incluye "VisorDeFacturas"
 
 using System;
 
@@ -32,7 +35,7 @@ class Facturacion
             switch (option)
             {
                 case 1:
-                    VisorClientes visorClientes = new VisorClientes();
+                    VisorDeClientes visorClientes = new VisorDeClientes();
                     visorClientes.Ejecutar();
                     break;
                 case 2:

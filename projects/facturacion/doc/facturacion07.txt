@@ -1,0 +1,7 @@
+﻿Facturación - 07
+
+Facturas y líneas, segunda aproximación
+
+Una factura, además de la cabecera, podrá contener varias líneas de detalle. En cada línea de la factura se almacenará un artículo, junto con la cantidad que ese cliente ha comprado de ese artículo (al usuario se le preguntará el código del artículo).
+
+Se debe implementar el guardado y la carga de facturas, incluyendo líneas de detalle.

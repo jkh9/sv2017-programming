@@ -1,4 +1,12 @@
-﻿using System;
+﻿// Facturación, clase "Factura"
+
+// Versiones:
+// V0.06a 17-Abr-2018 
+//      Moisés: Creada la clase
+//      Nacho: Eliminado namespace
+// V0.07a 17-Abr-2018 Nacho: Descomentado lo relativo a LineaDetalle
+
+using System;
 
 class VisorDeFacturas
 {
@@ -74,13 +82,13 @@ class VisorDeFacturas
         Console.Write(Facturas.Get(Index).CabeceraActual.ClienteActual.Cif);
 
         //Lineas de factura
-        /*for (int i = 0; i < Facturas.Get(Index).Lineas.Count; i++)
+        for (int i = 0; i < Facturas.Get(Index).Lineas.Count; i++)
         {
             Console.SetCursorPosition(0, 6+i);
             Console.Write(Facturas.Get(Index).Lineas[i].ProductoActual.Codigo);
             Console.Write(" x ");
             Console.Write((Facturas.Get(Index).Lineas[i].Cantidad));
-        }*/
+        }
 
         //Parte de abajo
         Console.SetCursorPosition(0, Console.WindowHeight - 4);
@@ -131,7 +139,6 @@ class VisorDeFacturas
 
     private void newLinea()
     {
-        /*
         LineaDetalle lineaActual = new LineaDetalle();
         ListaDeProductos productos = new ListaDeProductos();
         resetConsole();
@@ -173,7 +180,6 @@ class VisorDeFacturas
         }
 
         Facturas.Get(Index).Lineas.Add(lineaActual);
-        */
     }
 
     private void getUserImput(ref bool exit)

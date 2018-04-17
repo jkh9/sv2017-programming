@@ -1,4 +1,11 @@
-﻿using System;
+﻿// Facturación, clase "ListaDeProductos"
+
+// Versiones:
+// V0.05a 15-Abr-2018 
+//      Moisés: Creada la clase
+//      Nacho: Eliminado namespace
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;

@@ -1,4 +1,4 @@
-﻿// Facturación, clase "VisorClientes"
+﻿// Facturación, clase "VisorDeClientes"
 
 // Versiones:
 // V0.01a 11-Abr-2018 Raúl Gogna: Muestra esqueleto, analiza opciones
@@ -7,15 +7,16 @@
 //            Ver, anterior, posterior, añadir
 // V0.04a 15-Abr-2018 Raúl Gogna, correcciones por Nacho: 
 //            Número, buscar, modificar
+// V0.07a 17-Abr-2018 Nacho: Renombrado a VisorDeClientes
 
 using System;
 
-class VisorClientes
+class VisorDeClientes
 {
     private ListaDeClientes clientes;
     private int clienteActual;
 
-    public VisorClientes()
+    public VisorDeClientes()
     {
         clientes = new ListaDeClientes();
     }
