@@ -1,7 +1,10 @@
 ﻿/*
- - v0.10 - 28-Feb-2018 - Javier Saorín, Querubin Santana, Francisco Sabater.
+ *  Maze Game
+ * 
+ * v0.10 - 28-Feb-2018 - Javier Saorín, Querubin Santana, Francisco Sabater.
+ * V0.11 20-Abr-2018 Nacho: Compilation error solved (char instead of string)
  */
- 
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,29 +15,27 @@ public static class MapToFile
     {
         List<byte> mylist = new List<byte>();
 
-        
-
             foreach (string room in arrstrings)
             {
 
                 byte translation = 0;
 
-                if (room.Contains('U'))
+                if (room.Contains("U"))
                 {
                     translation += 1;
                 }
 
-                if (room.Contains('D'))
+                if (room.Contains("D"))
                 {
                     translation += 2;
                 }
 
-                if (room.Contains('R'))
+                if (room.Contains("R"))
                 {
                     translation += 4;
                 }
 
-                if (room.Contains('L'))
+                if (room.Contains("L"))
                 {
                     translation += 8;
                 }

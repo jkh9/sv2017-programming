@@ -4,6 +4,7 @@
  *  V0.07 19-Dic-2017 Nacho: Almost empty skeleton
  *  V0.09 17-Ene-2018 Victor, Miguel Garcia, Miguel Pastor, Gonzalo: Use of the methods of this class
  *  with the code from Game.
+ * V0.11 20-Abr-2018 Nacho: Help added. "rotate left" bug fixed.
  */
 
 using System;
@@ -25,28 +26,33 @@ public class TextInterface
             Console.Write("Door West. ");
         Console.WriteLine();
 
-        Console.Write("What now (\"end\" to finish)? ");
+        Console.Write("What now (\"end\" to finish, \"help\" for help) ? ");
         
     }
 
     public string GetCommand(string[,] map, ref int x, ref int y, ref byte orientation)
     {
-        string answer = Console.ReadLine();
+        string answer = Console.ReadLine().Trim().ToLower();
         Console.Clear();
 
-        if (answer.ToLower() == "turn right")
+        if (answer == "help")
+        {
+            Console.WriteLine("Available commands: ");
+            Console.WriteLine("turn right, turn right, walk");
+        }
+        else if ((answer == "turn right") || (answer == "right"))
         {
             orientation++;
             if (orientation > 3)
                 orientation = 0;
         }
-        else if (answer.ToLower() == "turn left")
+        else if ((answer == "turn left") || (answer == "left"))
         {
             orientation--;
-            if (orientation < 0)
+            if ((orientation < 0) || (orientation > 3))
                 orientation = 3;
         }
-        else if (answer.ToLower() == "walk")
+        else if (answer == "walk")
         {
             if (orientation == (byte)Game.orientations.SOUTH &&
                 map[y, x].Contains("D"))

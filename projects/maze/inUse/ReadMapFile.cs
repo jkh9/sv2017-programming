@@ -1,13 +1,17 @@
-﻿
-// 0.10. 28-Feb-2018, Sabater, Querubin, Saorin
-//
+﻿/*
+ *  Maze Game
+ * 
+ * V0.10. 28-Feb-2018, Sabater, Querubin, Saorin
+ * V0.11 20-Abr-2018 Nacho: Compilation error solved ("return" missing)
+ */
+
 using System;
 using System.IO;
 using System.Collections.Generic;
 
 public class ReadMapFile
 {
-    public static string[,] LoadMap(string filename)
+    public static string[] LoadMap(string filename)
     {
         string[] map = new string[24];
 
@@ -60,6 +64,7 @@ public class ReadMapFile
 
             }
         }
+        return map;
     }
 }
 
