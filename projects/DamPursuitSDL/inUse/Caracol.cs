@@ -1,0 +1,4 @@
+﻿class Caracol : MainCharacter
+{
+}
+
