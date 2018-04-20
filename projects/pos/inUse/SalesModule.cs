@@ -15,11 +15,13 @@
 // V0.11 28-Feb-2018 Guillermo Pastor, Pedro Luis Coloma, Renata Pestana, Javier Cases: 
 //         Arrays replaced for Lists<struct>
 // V0.12 02-Mar-2018 Nacho: Changed List<Sell> to List<Transaction>
+// V0.13 20-Apr-2018 Nacho: 
+//      Screen is cleared when entering. Title is displayed
+//      Total is displayed as big numbers
 
 using System;
 using System.IO;
 using System.Collections.Generic;
-
 
 public class SalesModule
 {
@@ -29,6 +31,9 @@ public class SalesModule
     {
         transactions = new List<Transaction>();
         LoadFromFile();
+        Console.Clear();
+        Console.WriteLine("POINT OF SALE - SELL");
+        Console.WriteLine();
 
         Console.WriteLine("Hint: Enter the amount sold, "
             + "press Enter to get the total, or "
@@ -42,6 +47,9 @@ public class SalesModule
 
             do  // Loop for a single sell
             {
+                Console.SetCursorPosition(3, 6);
+                Console.Write("                    ");  // Blank last input
+                Console.SetCursorPosition(3, 6);
                 Console.Write("Amount? ");
                 answer = Console.ReadLine();
 
@@ -51,6 +59,7 @@ public class SalesModule
                     sum += amount;
                     DateTime d = DateTime.Now;
                     transactions.Add(new Transaction(d, amount));
+                    BigNumbers.ShowAmount(sum.ToString(), 50, 6);
                 }
                 catch (Exception)
                 {
@@ -59,6 +68,7 @@ public class SalesModule
             }
             while ((answer != "") && (answer != "total")
                 && (answer != "end"));
+            Console.WriteLine();
             Console.WriteLine("Total: " + sum);
             sum = 0;
 

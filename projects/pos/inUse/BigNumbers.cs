@@ -1,5 +1,6 @@
 ﻿// V0.10 17-Ene-2018, Encinas & Others
 //          Created class BigNumbers
+// V0.13 20-Apr-2018 Nacho: Margin uses lines instead of "o"
 
 using System;
 
@@ -96,13 +97,13 @@ class BigNumbers
             Console.SetCursorPosition(x-2, y-2+i);
             if (i == 0 || i == 8)
             {
-                Console.Write(new string('o', 22));
+                Console.Write(new string('-', 22));
             }
             else
             {
-                Console.Write("o");
+                Console.Write("|");
                 Console.Write(new string(' ', 20));
-                Console.Write("o");
+                Console.Write("|");
             }
         }
 

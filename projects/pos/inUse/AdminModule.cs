@@ -7,6 +7,7 @@
 // V0.09 20-Dic-2017 Santana & ?: Stats for a day
 //       17-Ene-2018 Nacho: Date for each transaction is also saved
 // V0.12 02-Mar-2018 Nacho: The "view totals" option now shows the totals ;-)
+// V0.13 20-Apr-2018 Nacho: Option 0 to quit. Screen is cleared when entering
 
 using System;
 using System.IO;
@@ -15,13 +16,16 @@ public class AdminModule
 {
     public void Run()
     {
-        Console.WriteLine("1.- View totals for a day");
-        Console.WriteLine("end.- Return to main menu");
-    
+        Console.Clear();
+        Console.WriteLine("MANAGEMENT CONSOLE");
         string answer;
 
-        do  // Loop for a whole daily session
+        do
         {
+            Console.WriteLine();
+            Console.WriteLine("1.- View totals for a day");
+            Console.WriteLine("0.- Return to main menu");
+
             Console.Write("Option? ");
             answer = Console.ReadLine().ToLower();
 
@@ -45,7 +49,7 @@ public class AdminModule
                 Console.WriteLine("Total: "+total);
             }
         }
-        while (answer != "end");
+        while (answer != "0");
 
     }
 }

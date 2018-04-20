@@ -4,6 +4,7 @@
 
 // Versions:
 // V0.08 19-Dic-2017 Nacho: Split into classes, most content moved to SalesModule
+// V0.13 20-Apr-2018 Nacho: Screen is cleared when entering. Title is displayed
 
 using System;
 
@@ -48,11 +49,16 @@ public class PointOfSale
 
     public void ShowMenu()
     {
+        Console.SetWindowSize(80, 25);
+        Console.Clear();
+        Console.WriteLine("POINT OF SALE");
+        Console.WriteLine();
+
         Console.WriteLine("1 - Sell");
         Console.WriteLine("2 - Management");
         Console.WriteLine("0 - Exit");
         Console.WriteLine();
-        Console.WriteLine("Choose one option: ");
+        Console.Write("Choose an option: ");
     }
 }
 
