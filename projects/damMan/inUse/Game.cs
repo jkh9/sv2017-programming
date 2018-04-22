@@ -11,6 +11,8 @@
 // V0.05 28-Feb-2018 Marcos, Jose, Moisés: Collisions checked
 // V0.06 28-Feb-2018 Brandon Blasco, Cesar Martin, Luis Selles - Corrections by Nacho:
 //         Loading a level from a TXT file
+// V0.07 20-Abril-2018 Rebollo, Miguel Pastor, Martin-Montalvo, Pestana : 
+//         Added ESC Button with Pause Class (Unfunctional for now)
 
 
 using System;
@@ -41,6 +43,29 @@ public class Game
         myPlayer = new Player();
         //Implementing the level
         myLevel = new Level(1);
+    }
+	
+	public static void PrintScore(int totalScore)
+    {
+        Console.SetCursorPosition(50, 12);
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write(totalScore);
+        Console.ResetColor();
+    }
+
+    public static void PrintLives(int lives)
+    {
+        int barWidth = 2; // ???
+        Console.SetCursorPosition(50, 7);
+        for (int i = 0; i < 25; i++)
+            Console.Write(" ");
+        Console.BackgroundColor = ConsoleColor.White;
+        for (int i = 0; i < lives; i++)
+        {
+            Console.SetCursorPosition(50 + i * (barWidth + 2), 7);
+            Console.Write("     ");
+        }
+        Console.ResetColor();
     }
 
     // Operations
@@ -94,6 +119,10 @@ public class Game
                 myLevel.CanMoveTo(myPlayer.GetX(), myPlayer.GetY() + 1))
             {
                 myPlayer.MoveDown();
+            }
+            else if (key.Key == ConsoleKey.Escape)
+            {
+                //Call Pause
             }
         }
     }
