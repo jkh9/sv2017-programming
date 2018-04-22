@@ -18,6 +18,9 @@
 // V0.13 20-Apr-2018 Nacho: 
 //      Screen is cleared when entering. Title is displayed
 //      Total is displayed as big numbers
+// V0.14 20-Apr-2018 Guillermo, Brandon, Javier.C: 
+//      Minor changes
+//      Command "total" display the totals for today
 
 using System;
 using System.IO;
@@ -35,9 +38,9 @@ public class SalesModule
         Console.WriteLine("POINT OF SALE - SELL");
         Console.WriteLine();
 
-        Console.WriteLine("Hint: Enter the amount sold, "
-            + "press Enter to get the total, or "
-            + "type \"total\" or \"end\"");
+        Console.WriteLine("Hint: Enter the amount sold,");
+        Console.WriteLine("press Enter to get the total,");
+        Console.WriteLine(" or type \"total\" or \"end\"");
         string answer;
 
         do  // Loop for a whole daily session
@@ -48,43 +51,76 @@ public class SalesModule
             do  // Loop for a single sell
             {
                 Console.SetCursorPosition(3, 6);
-                Console.Write("                    ");  // Blank last input
+                String space = new String(' ', 20);
+                Console.Write(space);  // Blank last input
                 Console.SetCursorPosition(3, 6);
                 Console.Write("Amount? ");
                 answer = Console.ReadLine();
+                
+            if (answer.Contains("."))
+                answer = answer.Replace(".", ",");
 
-                try
+            try
                 {
                     amount = Convert.ToDouble(answer);
                     sum += amount;
                     DateTime d = DateTime.Now;
                     transactions.Add(new Transaction(d, amount));
-                    BigNumbers.ShowAmount(sum.ToString(), 50, 6);
+                    BigNumbers.ShowAmount(sum.ToString("N2"), 35, 4);
                 }
-                catch (Exception)
-                {
-                    // Nothing to do if it is not a valid number
-                }
+                catch (Exception) { /* Nothing to do if it is not a valid number */ }
             }
             while ((answer != "") && (answer != "total")
                 && (answer != "end"));
             Console.WriteLine();
-            Console.WriteLine("Total: " + sum);
+
+            // Position in Screen -> 8
+
+            string text = "Total: " + sum;
+            Draw(text, 8);
+
             sum = 0;
 
             if (answer == "total")
-            {
-                double total = 0;
-                for (int i = 0; i < transactions.Count; i++)
-                {
-                    total += transactions[i].GetAmount();
-                }
-                Console.WriteLine("Daily total: " + total);
-            }
+                DisplayTotal(DateTime.Now); 
         }
         while (answer != "end");
 
         SaveToFile();
+    }
+
+    // Position in Screen -> 9
+
+    private static void GlobalTotal()
+    {
+        double total = 0;
+        for (int i = 0; i < transactions.Count; i++)
+            total += transactions[i].GetAmount();
+
+        string text = "Global total: " + total;
+
+        Draw(text, 9);
+    }
+
+    private static void DisplayTotal(DateTime date)
+    {
+        double total = 0;
+        for (int i = 0; i < transactions.Count; i++)
+            if (date.Day == transactions[i].GetDate().Day
+                && date.Month == transactions[i].GetDate().Month
+                && date.Year == transactions[i].GetDate().Year)
+                total += transactions[i].GetAmount();
+
+        string text = "Daily total: " + total;
+
+        Draw(text, 9);
+    }
+
+    private static void Draw(string text, int position)
+    {
+        Console.SetCursorPosition(0, position);
+        String reset = new String(' ', (Console.WindowWidth / 2) - text.Length - 10);
+        Console.WriteLine(text + reset);
     }
 
 

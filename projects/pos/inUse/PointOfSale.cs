@@ -5,6 +5,7 @@
 // Versions:
 // V0.08 19-Dic-2017 Nacho: Split into classes, most content moved to SalesModule
 // V0.13 20-Apr-2018 Nacho: Screen is cleared when entering. Title is displayed
+// V0.14 20-Apr-2018 Guille, Brandon & Cases: Minor Changes + Controlled Exception for Input
 
 using System;
 
@@ -18,13 +19,17 @@ public class PointOfSale
 
     public void Run()
     {
-        int option;
-
+        Int32 number;
         do
         {
             ShowMenu();
-            option = Convert.ToInt32(Console.ReadLine());
-            switch (option)
+            bool cFormat = Int32.TryParse(Console.ReadLine(), out number);
+            
+            // Incorrect Format
+            if (!cFormat)
+                number = 10;
+
+            switch (number)
             {
                 case 1:
                     SalesModule sales = new SalesModule();
@@ -34,9 +39,13 @@ public class PointOfSale
                     AdminModule admin = new AdminModule();
                     admin.Run();
                     break;
+                case 3:
+                    CreditsScreen.Display();
+                    break;
                 case 0:
-                    Console.WriteLine("Bye!");
-                    Console.WriteLine();
+                    Console.SetCursorPosition(Console.WindowWidth / 2 - 3,
+                        Console.WindowHeight / 2);
+                    Console.WriteLine("Bye");
                     break;
                 default:
                     Console.WriteLine("Wrong option");
@@ -44,7 +53,7 @@ public class PointOfSale
                     break;
             }
         }
-        while (option != 0);
+        while (number != 0);
     }
 
     public void ShowMenu()
