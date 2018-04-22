@@ -10,13 +10,13 @@
  *  V0.07 19-Dic-2017 Nacho: Split into classes (all previous code goes to Game)
  *  V0.09 17-Ene-2018 Victor, Miguel Garcia, Miguel Pastor, Gonzalo: Use of the classes 
  *  RoomViewer and TextInterface.
- *  
+ *  V0.12 20-Abr-2018 Javier, Gonzalo, Daniel: The game ends when the energy reaches zero.
  */
 
 using System;
 
 public class Game
-{
+{ 
     public enum orientations { NORTH, EAST, SOUTH, WEST };
     private RoomViewer rv = new RoomViewer();
     private TextInterface txt = new TextInterface();
@@ -59,7 +59,8 @@ public class Game
                         txt.Display(map,x,y,orientation);
 
                     }
-                    while (txt.GetCommand(map, ref x, ref y, ref orientation) != "end");
+                    while (txt.GetCommand(map, ref x, ref y, ref orientation)
+                        != "end" && txt.Energy > 0);
                     break;
                 case '2':
                     Console.WriteLine();
