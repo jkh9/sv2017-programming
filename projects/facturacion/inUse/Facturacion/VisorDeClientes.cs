@@ -1,4 +1,4 @@
-﻿// Facturación, clase "VisorDeClientes"
+﻿ // Facturación, clase "VisorDeClientes"
 
 // Versiones:
 // V0.01a 11-Abr-2018 Raúl Gogna: Muestra esqueleto, analiza opciones
@@ -8,403 +8,440 @@
 // V0.04a 15-Abr-2018 Raúl Gogna, correcciones por Nacho: 
 //            Número, buscar, modificar
 // V0.07a 17-Abr-2018 Nacho: Renombrado a VisorDeClientes
+/* V0.08a 20-Abr-2018 Moisés: Funciones para parte arriba y abajo, 
+ * drawActualClient y new client usan Consola Mejorada
+*/
 
 using System;
+using System.Collections.Generic;
 
 class VisorDeClientes
 {
-    private ListaDeClientes clientes;
-    private int clienteActual;
+    public ListaDeClientes Clientes { get; set; }
+    public int Index { get; set; }
 
     public VisorDeClientes()
     {
-        clientes = new ListaDeClientes();
+        Clientes = new ListaDeClientes();
+        Index = 0;
     }
 
     public void Ejecutar()
     {
-        bool terminado = false;
+        bool exit = false;
         do
         {
-            Console.Clear();
-            Console.WriteLine("Clientes (ficha actual: "+
-                (clienteActual+1)+
-                ")      " + DateTime.Now);
-            MostrarClienteActual();
-            MostrarMenuInferior();
-                       
-            string line = Console.ReadLine();
-
-            switch (line)
-            {
-                //Anterior
-                case "1":
-                    if (clienteActual > 0) clienteActual--;
-                    break;
-                //Posterior
-                case "2":
-                    if (clienteActual < clientes.Count-1) clienteActual++;
-                    break;
-                //Numero
-                case "3":
-                    IrANumero();
-                    break;
-                //Buscar
-                case "4":
-                    Buscar();
-                    break;
-                //Añadir
-                case "5":
-                    AnadirCliente();
-                    break;
-                //Modificar
-                case "6":
-                    Modificar();
-                    break;
-                //Borrar
-                case "B":
-                    // TO DO
-                    break;
-                //Listados
-                case "7":
-                    // TO DO
-                    break;
-                //Ayuda
-                case "F1":
-                    // TO DO
-                    break;
-                //Terminar
-                case "0":
-                    terminado = true;
-                    break;
-                default:
-                    break;
-            }
-        } while (!terminado);
+            drawActualClient();
+            getUserImput(ref exit);
+        } while (!exit);
     }
 
-    public void MostrarClienteActual()
+    private void resetConsole()
     {
-        //To do: Top line
-        if (clientes.Count == 0)
-        {
-            Console.WriteLine("(Aún no hay datos)");
-            return;
-        }
+        Console.Clear();
 
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Nombre: ");
-        Console.ResetColor();
-        Console.Write("  ");
-        if (clientes.Get(clienteActual).Nombre == "")
-            clientes.Get(clienteActual).Nombre = "Por Confirmar";
-        Console.WriteLine(clientes.Get(clienteActual).Nombre);
-
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Cif: ");
-        Console.ResetColor();
-        Console.Write("  ");
-        if (clientes.Get(clienteActual).Cif == "")
-            clientes.Get(clienteActual).Cif = "Por Confirmar";
-        Console.WriteLine(clientes.Get(clienteActual).Cif);
-        Console.WriteLine();
-
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Domicilio: ");
-        Console.ResetColor();
-        Console.Write("  ");
-        if (clientes.Get(clienteActual).Domicilio == "")
-            clientes.Get(clienteActual).Domicilio = "Por Confirmar";
-        Console.WriteLine(clientes.Get(clienteActual).Domicilio);
-
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Ciudad: ");
-        Console.ResetColor();
-        Console.Write("  ");
-        if (clientes.Get(clienteActual).Ciudad == "")
-            clientes.Get(clienteActual).Ciudad = "Por Confirmar";
-        Console.WriteLine(clientes.Get(clienteActual).Ciudad);
-
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Cod.Postal: ");
-        Console.ResetColor();
-        Console.Write("  ");
-        if (clientes.Get(clienteActual).CodigoPostal == "")
-            clientes.Get(clienteActual).CodigoPostal = "Por Confirmar";
-        Console.WriteLine(clientes.Get(clienteActual).CodigoPostal);
-
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("País: ");
-        Console.ResetColor();
-        Console.Write("  ");
-        if (clientes.Get(clienteActual).Pais == "")
-            clientes.Get(clienteActual).Pais = "Por Confirmar";
-        Console.WriteLine(clientes.Get(clienteActual).Pais);
-
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Teléfono: ");
-        Console.ResetColor();
-        Console.Write("  ");
-        if (clientes.Get(clienteActual).Telefono == "")
-            clientes.Get(clienteActual).Telefono = "Por Confirmar";
-        Console.WriteLine(clientes.Get(clienteActual).Telefono);
-
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("E-mail: ");
-        Console.ResetColor();
-        Console.Write("  ");
-        if (clientes.Get(clienteActual).Email == "")
-            clientes.Get(clienteActual).Email = "Por Confirmar";
-        Console.WriteLine(clientes.Get(clienteActual).Email);
-
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Contacto: ");
-        Console.ResetColor();
-        Console.Write("  ");
-        if (clientes.Get(clienteActual).Contacto == "")
-            clientes.Get(clienteActual).Contacto = "Por Confirmar";
-        Console.WriteLine(clientes.Get(clienteActual).Contacto);
-        Console.WriteLine();
-
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine("Observaciones: ");
-        Console.ResetColor();
-        Console.Write("  ");
-        if (clientes.Get(clienteActual).Observaciones == "")
-            clientes.Get(clienteActual).Observaciones = "Sin observaciones";
-        Console.WriteLine(clientes.Get(clienteActual).Observaciones);
-    }
-
-    public void MostrarMenuInferior()
-    {
-        Console.SetCursorPosition(0, Console.WindowHeight - 4);
+        Console.SetCursorPosition(0, 0);
         Console.BackgroundColor = ConsoleColor.Blue;
-        Console.WriteLine(new string('-', 78));
-        Console.SetCursorPosition(0, Console.WindowHeight - 3);
-        Console.WriteLine("1-Anterior  2-Posterior  3-Número  4-Buscar  5-Añadir  6-Modificar  B-Borrar(*)");
-        Console.WriteLine("7-Listados(*)  F1-Ayuda(*)  0-Terminar");
-        Console.SetCursorPosition(0, Console.WindowHeight - 2);
-        Console.ResetColor();
-    }
-    
-    public void MostrarInfoSuperior()
-    {
-        Console.SetCursorPosition(0,0);
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine(new string('_', 79));
-        Console.WriteLine("|" + new string('_', 7) + "|");
-        Console.Write(new string('|', 1));
-        Console.Write(" Clientes (ficha actual: " + (clienteActual + 1) + "/" +
-            clientes.Count + ")");
-        Console.ForegroundColor = ConsoleColor.Gray;
-        Console.Write("       " + DateTime.Now + "                       " +
-            "|");
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine(new string('_', 79));
-    }
-
-    public void AnadirCliente()
-    {
-        Console.Clear();
-        Console.Write("Nombre: ");
-        string nombre = Console.ReadLine();
-
-        Console.Write("Cif: ");
-        string cif = Console.ReadLine();
-
-        Console.Write("Domicilio: ");
-        string domicilio = Console.ReadLine();
-
-        Console.Write("Ciudad: ");
-        string ciudad = Console.ReadLine();
-
-        Console.Write("Codigo Postal: ");
-        string codigoPostal = Console.ReadLine();
-
-        Console.Write("Pais: ");
-        string pais = Console.ReadLine();
-
-        Console.Write("Teléfono: ");
-        string telefono = Console.ReadLine();
-
-        Console.Write("E-mail: ");
-        string email = Console.ReadLine();
-
-        Console.Write("Contacto: ");
-        string contacto = Console.ReadLine();
-
-        Console.Write("Observaciones: ");
-        string observaciones = Console.ReadLine();
-
-        clientes.Add(
-            new Cliente(nombre, cif, domicilio, ciudad,
-                codigoPostal, pais, telefono, email,
-                contacto, observaciones));
-    }
-    
-    public void Buscar()
-    {
-        Console.Clear();
-        bool encontrado = false;
-        Console.Write("Texto a buscar? ");
-        string str = Console.ReadLine().ToLower();
-        Console.WriteLine();
-        Console.Write("Buscar desde actual (1) o primer registro (2)? ");
-        string option = Console.ReadLine();
-        
-        int puntoDePartida = 0;
-        if (option == "1")
-            puntoDePartida = clienteActual;
-
-        for (int i = puntoDePartida; i < clientes.Count; i++)
+        for (int i = 0; i < Console.WindowHeight; i++)
         {
-            if (clientes.Get(i).Nombre.ToLower().Contains(str) ||
-                clientes.Get(i).Cif.ToLower().Contains(str) ||
-                clientes.Get(i).Domicilio.ToLower().Contains(str) ||
-                clientes.Get(i).Ciudad.ToLower().Contains(str) ||
-                clientes.Get(i).CodigoPostal.ToLower().Contains(str) ||
-                clientes.Get(i).Pais.ToLower().Contains(str) ||
-                clientes.Get(i).Telefono.ToLower().Contains(str) ||
-                clientes.Get(i).Email.ToLower().Contains(str) ||
-                clientes.Get(i).Contacto.ToLower().Contains(str) ||
-                clientes.Get(i).Observaciones.ToLower().Contains(str))
-            {
-                encontrado = true;
-                Console.Write("Encontrado. Pulse Intro para ver el registro... ");
-                Console.ReadLine();
-                clienteActual = i;
-                break;
-            }
+            Console.Write(new string(' ', Console.WindowWidth + 1));
         }
 
-        if (!encontrado)
+        Console.SetCursorPosition(0, 0);
+        Console.ForegroundColor = ConsoleColor.White;
+    }
+
+    private void drawTop()
+    {
+        string line = new string('-', Console.WindowWidth);
+        string emptyLine = new string(' ', Console.WindowWidth - 2);
+        string topLine = "Clientes (ficha actual: " + (Index+1) + "/" + Clientes.Count + ")";
+        string date = (DateTime.Now + "").Substring(0, 11) + "       " +
+            (DateTime.Now + "").Substring(11);
+
+        //Cuadrado de arriba
+        Console.SetCursorPosition(0, 0);
+        Console.Write(line);
+        Console.Write("|" + emptyLine + "|");
+        Console.Write(line);
+        Console.SetCursorPosition(1, 1);
+        Console.Write(topLine);
+        Console.SetCursorPosition(Console.WindowWidth / 2, 1);
+        Console.Write(date);
+    }
+
+    private void drawBottom()
+    {
+        string line = new string('-', Console.WindowWidth);
+        string helpLine1 = "1-Anterior  2-Posterior  3-Número  4-Buscar  " +
+            "5-Añadir  6-Modificar  B-Borrar";
+        string helpLine2 = "7-Listados  F1-Ayuda  0-Terminar";
+
+        //Parte de abajo
+        Console.SetCursorPosition(0, Console.WindowHeight - 4);
+        Console.Write(line);
+        Console.SetCursorPosition(Console.WindowWidth / 2 -
+            (helpLine1.Length / 2), Console.WindowHeight - 3);
+        Console.WriteLine(helpLine1);
+        Console.SetCursorPosition(Console.WindowWidth / 2 -
+            (helpLine2.Length / 2), Console.WindowHeight - 2);
+        Console.WriteLine(helpLine2);
+    }
+
+    private void drawActualClient()
+    {
+        resetConsole();
+
+        drawTop();
+
+        if (Clientes.Count > 0)
         {
-            Console.Write("No encontrado. Pulse Intro para volver... ");
+            //Cuerpo del programa
+            ConsolaMejorada.Escribir(0, 4, "Nombre: ", "white",false);
+            ConsolaMejorada.Escribir(11, 4, 
+                checkVacio(Clientes.Get(Index).Nombre), "white",true);
+
+            ConsolaMejorada.Escribir(0, 5, "DNI / CIF: ", "white",false);
+            ConsolaMejorada.Escribir(11, 5,
+                checkVacio(Clientes.Get(Index).Cif), "white", true);
+
+            ConsolaMejorada.Escribir(0, 7, "Domicilio: ", "white", false);
+            ConsolaMejorada.Escribir(11, 7,
+                checkVacio(Clientes.Get(Index).Domicilio), "white", true);
+
+            ConsolaMejorada.Escribir(0, 8, "Ciudad: ", "white", false);
+            ConsolaMejorada.Escribir(11, 8,
+                checkVacio(Clientes.Get(Index).Ciudad), "white", true);
+
+            ConsolaMejorada.Escribir(0, 9, "Cod.Postal: ", "white", false);
+            ConsolaMejorada.Escribir(11, 9,
+                checkVacio(Clientes.Get(Index).CodigoPostal.ToString("00000")), 
+                "white", true);
+
+            ConsolaMejorada.Escribir(0, 10, "Pais: ", "white", false);
+            ConsolaMejorada.Escribir(11, 10,
+                checkVacio(Clientes.Get(Index).Pais), "white", true);
+
+            ConsolaMejorada.Escribir(0, 11, "Teléfono: ", "white", false);
+            ConsolaMejorada.Escribir(11, 11,
+                checkVacio(Clientes.Get(Index).Telefono), "white", true);
+
+            ConsolaMejorada.Escribir(0, 12, "E-mail: ", "white", false);
+            ConsolaMejorada.Escribir(11, 12,
+                checkVacio(Clientes.Get(Index).Email), "white", true);
+
+            ConsolaMejorada.Escribir(0, 13, "Contacto: ", "white", false);
+            ConsolaMejorada.Escribir(11, 13,
+                checkVacio(Clientes.Get(Index).Contacto), "white", true);
+
+            ConsolaMejorada.Escribir(0, 15, "Observaciones: ", "white", false);
+            ConsolaMejorada.Escribir(11, 15,
+                checkVacio(Clientes.Get(Index).Observaciones), "white", true);
+        }
+
+        drawBottom();
+        Console.ResetColor();
+    }
+
+    private string checkVacio(string lineToCheck)
+    {
+        if (lineToCheck == "" || lineToCheck == null)
+        {
+            return "(Por Confirmar)";
+        }
+        else
+        {
+            return lineToCheck.ToString();
+        }
+    }
+
+    private string checkVacio(int lineToCheck)
+    {
+        if (lineToCheck == 0)
+        {
+            return "(Por Confirmar)";
+        }
+        else
+        {
+            return lineToCheck.ToString();
+        }
+    }
+
+    private Cliente newClient()
+    {
+        resetConsole();
+
+        drawTop();
+
+        Cliente ClientToAdd = new Cliente();
+
+        ConsolaMejorada.Escribir(0, 4, "Nombre: ", "white", false);
+        ClientToAdd.Nombre = ConsolaMejorada.Pedir(11, 4,20);
+
+        ConsolaMejorada.Escribir(0, 5, "DNI / CIF: ", "white", false);
+        ClientToAdd.Cif = ConsolaMejorada.Pedir(11, 5, 9);
+
+        ConsolaMejorada.Escribir(0, 7, "Domicilio: ", "white", false);
+        ClientToAdd.Domicilio = ConsolaMejorada.Pedir(11, 7, 20);
+
+        ConsolaMejorada.Escribir(0, 8, "Ciudad: ", "white", false);
+        ClientToAdd.Ciudad = ConsolaMejorada.Pedir(11, 8, 20);
+
+        ConsolaMejorada.Escribir(0, 9, "Cod.Postal: ", "white", false);
+        try
+        {
+            ClientToAdd.CodigoPostal = Convert.ToInt32(ConsolaMejorada.Pedir(11, 9, 5));
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Invalid number");
+        }
+
+        ConsolaMejorada.Escribir(0, 10, "Pais: ", "white", false);
+        ClientToAdd.Pais = ConsolaMejorada.Pedir(11, 10, 10);
+
+        ConsolaMejorada.Escribir(0, 11, "Teléfono: ", "white", false);
+        try
+        {
+            ClientToAdd.Telefono = Convert.ToInt32(ConsolaMejorada.Pedir(11, 11, 9));
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Invalid number");
+        }
+
+        ConsolaMejorada.Escribir(0, 12, "E-mail: ", "white", false);
+        ClientToAdd.Email = ConsolaMejorada.Pedir(11, 12, 40);
+
+        ConsolaMejorada.Escribir(0, 13, "Contacto: ", "white", false);
+        ClientToAdd.Contacto = ConsolaMejorada.Pedir(11, 13, 20);
+
+        ConsolaMejorada.Escribir(0, 14, "Observaciones: ", "white", false);
+        ClientToAdd.Observaciones = ConsolaMejorada.Pedir(13, 14, 40);
+
+        if (ClientToAdd.Observaciones == "")
+            ClientToAdd.Observaciones = "Sin Comentarios";
+
+        drawBottom();
+
+        return ClientToAdd;
+    }
+
+    private int JumpIntoClient()
+    {
+        resetConsole();
+        int client = Index;
+        Console.Write("Index? ");
+        try
+        {
+            client = Convert.ToInt32(Console.ReadLine());
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Invalid number");
+            Console.WriteLine("Press enter to return");
             Console.ReadLine();
         }
+
+        if (client > Clientes.Count)
+        {
+            client = Index;
+            Console.WriteLine("Doesn't exist");
+            Console.WriteLine("Press enter to return");
+            Console.ReadLine();
+        }
+
+        return client;
     }
-    
-    public void Modificar()
+
+    private Cliente modifyClient(Cliente actual)
     {
-        Cliente clienteAModificar = clientes.Get(clienteActual);
-        Console.Clear();
-        MostrarInfoSuperior();
-        
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Nombre: ");
-        Console.Write("  ");
-        Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine("Introduzca el nuevo nombre (era {0})", 
-            clienteAModificar.Nombre);
-        string answer = Console.ReadLine();
-        if (answer != "")
-            clienteAModificar.Nombre = answer;
+        resetConsole();
 
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Cif: ");
-        Console.Write("  ");
-        Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine("Introduzca el nuevo cif (era {0})",
-            clienteAModificar.Cif);
-        answer = Console.ReadLine();
-        if (answer != "")
-            clienteAModificar.Cif = answer;
+        drawTop();
 
-        Console.WriteLine();
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Domicilio: ");
-        Console.Write("  ");
-        Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine("Introduzca el nuevo domicilio (era {0})",
-            clienteAModificar.Domicilio);
-        answer = Console.ReadLine();
-        if (answer != "")
-            clienteAModificar.Domicilio = answer;
+        Cliente ClientToAdd = actual;
+        string cadena;
 
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Ciudad: ");
-        Console.Write("  ");
-        Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine("Introduzca la nueva ciudad (era {0})",
-            clienteAModificar.Ciudad);
-        answer = Console.ReadLine();
-        if (answer != "")
-            clienteAModificar.Ciudad = answer;
+        ConsolaMejorada.Escribir(0, 4, "Press enter to not modify", "white", false);
 
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Cod.Postal: ");
-        Console.Write("  ");
-        Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine("Introduzca el nuevo Cod.Postal (era {0})",
-            clienteAModificar.CodigoPostal);
-        answer = Console.ReadLine();
-        if (answer != "")
-            clienteAModificar.CodigoPostal = answer;
+        Console.Write("Nombre (" + ClientToAdd.Nombre + "): ");
+        cadena = Console.ReadLine();
+        if (cadena != "")
+        {
+            ClientToAdd.Nombre = cadena;
+        }
+        Console.Write("DNI / CIF (" + ClientToAdd.Cif + "): ");
+        cadena = Console.ReadLine();
+        if (cadena != "")
+        {
+            ClientToAdd.Cif = cadena;
+        }
+        Console.Write("Domicilio (" + ClientToAdd.Domicilio + "): ");
+        cadena = Console.ReadLine();
+        if (cadena != "")
+        {
+            ClientToAdd.Domicilio = cadena;
+        }
+        Console.Write("Ciudad (" + ClientToAdd.Ciudad + "): ");
+        cadena = Console.ReadLine();
+        if (cadena != "")
+        {
+            ClientToAdd.Ciudad = cadena;
+        }
 
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Pais: ");
-        Console.Write("  ");
-        Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine("Introduzca el nuevo pais (era {0})",
-            clienteAModificar.Pais);
-        answer = Console.ReadLine();
-        if (answer != "")
-            clienteAModificar.Pais = answer;
+        Console.Write("Cod.Postal (" + ClientToAdd.CodigoPostal + "): ");
+        try
+        {
+            ClientToAdd.CodigoPostal = Convert.ToInt32(Console.ReadLine());
+        }
+        catch (Exception)
+        {
+        }
 
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Teléfono: ");
-        Console.Write("  ");
-        Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine("Introduzca el nuevo teléfono (era {0})",
-            clienteAModificar.Telefono);
-        answer = Console.ReadLine();
-        if (answer != "")
-            clienteAModificar.Telefono = answer;
+        Console.Write("Pais (" + ClientToAdd.Pais + "): ");
+        cadena = Console.ReadLine();
+        if (cadena != "")
+        {
+            ClientToAdd.Pais = cadena;
+        }
+        Console.Write("Teléfono (" + ClientToAdd.Telefono + "): ");
+        try
+        {
+            ClientToAdd.Telefono = Convert.ToInt32(Console.ReadLine());
+        }
+        catch (Exception)
+        {
+        }
 
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("E-mail: ");
-        Console.Write("  ");
-        Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine("Introduzca el nuevo email (era {0})",
-            clienteAModificar.Email);
-        answer = Console.ReadLine();
-        if (answer != "")
-            clienteAModificar.Email = answer;
-
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Contacto: ");
-        Console.Write("  ");
-        Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine("Introduzca el nuevo contacto (era {0})",
-            clienteAModificar.Contacto);
-        answer = Console.ReadLine();
-        if (answer != "")
-            clienteAModificar.Contacto = answer;
-
-        Console.WriteLine();
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Observaciones: ");
-        Console.Write("  ");
-        Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine("Introduzca las nuevas observaciones (era {0})",
-            clienteAModificar.Observaciones);
-        answer = Console.ReadLine();
-        if (answer != "")
-            clienteAModificar.Observaciones = answer;
-
-        clientes.Set(clienteActual, clienteAModificar);
-    }
-    
-    public void IrANumero()
-    {
-        Console.Clear();
-        Console.Write("Número de registro? ");
-        int num = Convert.ToInt32(Console.ReadLine()) - 1;
-        if (num >= clientes.Count || num < 0)
-            Console.WriteLine("Número no válido");
+        Console.Write("E-mail (" + ClientToAdd.Email + "): ");
+        cadena = Console.ReadLine();
+        if (cadena != "")
+        {
+            ClientToAdd.Email = cadena;
+        }
+        Console.Write("Contacto (" + ClientToAdd.Contacto + "): ");
+        cadena = Console.ReadLine();
+        if (cadena != "")
+        {
+            ClientToAdd.Contacto = cadena;
+        }
+        Console.Write("Observaciones (" + ClientToAdd.Observaciones + "): ");
+        cadena = Console.ReadLine();
+        if (cadena == "")
+            ClientToAdd.Observaciones = "Sin Comentarios";
         else
-            clienteActual = num;
+            ClientToAdd.Observaciones = cadena;
+
+        drawBottom();
+
+        return ClientToAdd;
     }
 
+    private int searchText()
+    {
+        resetConsole();
+        Console.Write("Text to search: ");
+        string text = Console.ReadLine().ToLower();
 
+        Console.WriteLine("From this file or begining? file/begining");
+        string index = Console.ReadLine();
+
+        Console.WriteLine("Stop when finding a file o when finish? finding/finish");
+        string stop = Console.ReadLine();
+
+        int actualPos = 1;
+        List<int> foundPositions = new List<int>();
+        if (index == "file")
+        {
+            actualPos = Index;
+        }
+
+        bool find = false;
+        do
+        {
+            Cliente clienteActual = Clientes.Get(actualPos);
+            if (clienteActual.Nombre.ToLower().Contains(text) ||
+                clienteActual.Cif.ToLower().Contains(text) ||
+                clienteActual.Ciudad.ToLower().Contains(text) ||
+                clienteActual.CodigoPostal.ToString("00000").ToLower().Contains(text) ||
+                clienteActual.Pais.ToLower().Contains(text) ||
+                clienteActual.Telefono.ToString().ToLower().Contains(text) ||
+                clienteActual.Email.ToLower().Contains(text) ||
+                clienteActual.Contacto.ToLower().Contains(text) ||
+                clienteActual.Observaciones.ToLower().Contains(text))
+
+            {
+                if (stop == "finding")
+                {
+                    find = true;
+                }
+                foundPositions.Add(actualPos);
+            }
+            if (!find && actualPos < Clientes.Count)
+            {
+                actualPos++;
+            }
+        } while (!find && actualPos < Clientes.Count);
+
+        if (foundPositions.Count > 1)
+        {
+            Console.Write("Found at positions: ");
+            Console.Write(foundPositions[0]);
+            for (int i = 1; i < foundPositions.Count; i++)
+            {
+                Console.Write(", " + foundPositions[i]);
+            }
+            Console.WriteLine();
+            Console.WriteLine("Press enter to return");
+            Console.ReadLine();
+            return Index;
+        }
+
+        return actualPos;
+    }
+
+    private void getUserImput(ref bool exit)
+    {
+        ConsoleKeyInfo key;
+
+        do
+        {
+            key = Console.ReadKey(true);
+        } while (Console.KeyAvailable);
+
+        switch (key.Key)
+        {
+            case ConsoleKey.D0:
+                exit = true;
+                Clientes.Guardar();
+                break;
+            case ConsoleKey.D1:
+                if (Index > 0)
+                {
+                    Index--;
+                }
+                break;
+            case ConsoleKey.D2:
+                if (Index < Clientes.Count-1)
+                {
+                    Index++;
+                }
+                break;
+            case ConsoleKey.D3:
+                Index = JumpIntoClient();
+                break;
+            case ConsoleKey.D4:
+                Index = searchText();
+                break;
+            case ConsoleKey.D5:
+                Clientes.Add(newClient());
+                break;
+            case ConsoleKey.D6:
+                Clientes.Set(Index - 1, modifyClient(Clientes.Get(Index)));
+                break;
+            default:
+                break;
+        }
+    }
 }

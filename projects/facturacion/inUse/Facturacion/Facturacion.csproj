@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Cabecera.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="ConsolaMejorada.cs" />
     <Compile Include="Factura.cs" />
     <Compile Include="Facturacion.cs" />
     <Compile Include="LineaDetalle.cs" />

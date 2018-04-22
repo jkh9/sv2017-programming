@@ -5,12 +5,13 @@
 //      Moisés: Creada la clase
 //      Nacho: Eliminado namespace
 // V0.07a 17-Abr-2018 Nacho: Descomentado lo relativo a LineaDetalle
-
+// V0.08  20-Abr-2018 Moises Encinas, Raul Gogna, Pedro Coloma, Luis Selles
+//         Visor de facturas a private.
 using System;
 
 class VisorDeFacturas
 {
-    public ListaDeFacturas Facturas { get; set; }
+    private ListaDeFacturas Facturas;
     public int Index { get; set; }
 
     public VisorDeFacturas()
@@ -24,7 +25,7 @@ class VisorDeFacturas
         bool exit = false;
         do
         {
-            if (Facturas.Count  >= 1 )
+            if (Facturas.Count >= 1)
             {
                 drawActualFactura();
                 getUserImput(ref exit);
@@ -77,14 +78,14 @@ class VisorDeFacturas
         Console.Write("Número de factura: ");
         Console.Write(Facturas.Get(Index).CabeceraActual.Numero);
         Console.Write("  Fecha: ");
-        Console.Write((Facturas.Get(Index).CabeceraActual.Date + "").Substring(0,11));
+        Console.Write((Facturas.Get(Index).CabeceraActual.Date + "").Substring(0, 11));
         Console.Write("  Cliente: ");
         Console.Write(Facturas.Get(Index).CabeceraActual.ClienteActual.Cif);
 
         //Lineas de factura
         for (int i = 0; i < Facturas.Get(Index).Lineas.Count; i++)
         {
-            Console.SetCursorPosition(0, 6+i);
+            Console.SetCursorPosition(0, 6 + i);
             Console.Write(Facturas.Get(Index).Lineas[i].ProductoActual.Codigo);
             Console.Write(" x ");
             Console.Write((Facturas.Get(Index).Lineas[i].Cantidad));
@@ -220,4 +221,3 @@ class VisorDeFacturas
         }
     }
 }
-

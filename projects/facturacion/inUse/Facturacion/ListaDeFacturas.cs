@@ -4,6 +4,9 @@
 // V0.06a 17-Abr-2018 
 //      Moisés: Creada la clase
 //      Nacho: Eliminado namespace
+// V0.08  20-Abr-2018 Moises Encinas, Raul Gogna, Pedro Coloma, Luis Selles
+//          Lista de facturas: Pasar las listas de public a private y añadiendo 
+//          los metodos Get / Set para que no sean propiedades.
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +16,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 class ListaDeFacturas
 {
-    public List<Factura> Facturas { get; set; }
+    private List<Factura> Facturas;
     public int Count { get; set; }
 
     public ListaDeFacturas()
@@ -28,10 +31,34 @@ class ListaDeFacturas
         Count++;
     }
 
-    public Factura Get(int index)
+    public Factura Get(int n)
     {
-        return Facturas[index - 1];
+        if (n >= Facturas.Count || n < 0)
+        {
+            return null;
+        }
+        else
+        {
+            //Luis - Se vuelve a restar 1 para sacar el cliente que deseamos.
+            return Facturas[n - 1];
+        }
     }
+
+
+    public void Set(int n, Factura c)
+    {
+        if (n >= Facturas.Count || n < 0)
+        {
+            return;
+        }
+        else
+        {
+            //Luis - Se resta - 1 al numero de facturas, que previamente no se restaba.
+            Facturas[n - 1] = c;
+            Save();
+        }
+    }
+
 
     public void Load()
     {
@@ -47,7 +74,7 @@ class ListaDeFacturas
             }
             catch (Exception e)
             {
-                Console.WriteLine("Read fail ERROR: "+e.Message);
+                Console.WriteLine("Read fail ERROR: " + e.Message);
                 Console.ReadLine();
             }
         }

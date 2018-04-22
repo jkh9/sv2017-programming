@@ -4,6 +4,7 @@
 // V0.05a 15-Abr-2018 
 //      Moisés: Creada la clase
 //      Nacho: Eliminado namespace
+// V0.06 20-abril-2018 Raul Gogna visor de datos
 
 using System;
 using System.Collections.Generic;
@@ -60,39 +61,56 @@ class VisorDeProductos
         Console.SetCursorPosition(Console.WindowWidth / 2, 1);
         Console.Write(date);
 
+        string[] campos = { "Codigo:", "Descripcion:", "Categoria:",
+            "Precio Venta:", "Precio Compra:", "Stock:", "Stock mínimo:" };
+
         //Cuerpo del programa
         try
         {
-            Console.SetCursorPosition(0, 4);
-            Console.Write("Codigo: ");
-            Console.CursorLeft = 15;
-            Console.WriteLine(checkVacio(productos.Get(index).Codigo));
+            int cont = 0;
+            ConsolaMejorada.Escribir(0, 4, campos[cont], "white", false);
+            ConsolaMejorada.Escribir(15, 4,
+                checkVacio(productos.Get(index).Codigo), "gray", true);
+            cont++;
+
             Console.WriteLine();
-            Console.Write("Descripcion: ");
-            Console.CursorLeft = 15;
-            Console.WriteLine(checkVacio(productos.Get(index).Descripcion));
-            Console.Write("Categoria: ");
-            Console.CursorLeft = 15;
-            Console.WriteLine(checkVacio(productos.Get(index).Categoria));
+            ConsolaMejorada.Escribir(0, 7, campos[cont], "white", false);
+            ConsolaMejorada.Escribir(15, 7,
+                checkVacio(productos.Get(index).Descripcion), "gray", true);
+            cont++;
+
+            ConsolaMejorada.Escribir(0, 8, campos[cont], "white", false);
+            ConsolaMejorada.Escribir(15, 8,
+                checkVacio(productos.Get(index).Categoria), "gray", true);
+            cont++;
+
             Console.WriteLine();
-            Console.Write("Precio Venta: ");
-            Console.CursorLeft = 15;
-            Console.WriteLine(checkVacio(productos.Get(index).PrecioVenta));
-            Console.Write("Precio Compra: ");
-            Console.CursorLeft = 15;
-            Console.WriteLine(checkVacio(productos.Get(index).PrecioCompra));
+            ConsolaMejorada.Escribir(0, 10, campos[cont], "white", false);
+            ConsolaMejorada.Escribir(15, 10,
+                checkVacio(productos.Get(index).PrecioVenta), "gray", true);
+            cont++;
+
+            ConsolaMejorada.Escribir(0, 11, campos[cont], "white", false);
+            ConsolaMejorada.Escribir(15, 11,
+                checkVacio(productos.Get(index).PrecioCompra), "gray", true);
+            cont++;
+
             Console.WriteLine();
-            Console.Write("Stock: ");
-            Console.CursorLeft = 15;
-            Console.WriteLine(checkVacio(productos.Get(index).Stock));
-            Console.Write("Stock mínimo: ");
-            Console.CursorLeft = 15;
-            Console.WriteLine(checkVacio(productos.Get(index).StockMinimo));
+            ConsolaMejorada.Escribir(0, 14, campos[cont], "white", false);
+            ConsolaMejorada.Escribir(15, 14,
+                checkVacio(productos.Get(index).Stock), "gray", true);
+            cont++;
+
+            ConsolaMejorada.Escribir(0, 15, campos[cont], "white", false);
+            ConsolaMejorada.Escribir(15, 15,
+                checkVacio(productos.Get(index).StockMinimo), "gray", true);
+            cont = 0;
         }
-        catch(Exception)
+        catch (Exception)
         {
             // Nothing if there is no data
         }
+
 
         //Parte de abajo
         Console.SetCursorPosition(0, Console.WindowHeight - 4);
@@ -247,7 +265,7 @@ class VisorDeProductos
         catch (Exception)
         {
         }
-            
+
         Console.Write("Descripción (" + ProductToAdd.Descripcion + "): ");
         cadena = Console.ReadLine();
         if (cadena != "")
@@ -295,7 +313,7 @@ class VisorDeProductos
         catch (Exception)
         {
         }
-            
+
         return ProductToAdd;
     }
 
@@ -367,6 +385,7 @@ class VisorDeProductos
         {
             key = Console.ReadKey(true);
         } while (Console.KeyAvailable);
+
 
         switch (key.Key)
         {
