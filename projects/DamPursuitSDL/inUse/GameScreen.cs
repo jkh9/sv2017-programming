@@ -1,37 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using Tao.Sdl;
 
-struct Casilla
+struct Tile
 {
     public short X;
     public short Y;
-    public Categoria categoria;
+    public Category category;
 }
 class GameScreen
 {
-    List<Pregunta> preguntas;
-    Casilla[] casillas = new Casilla[28];
+    List<Question> questions;
+    Tile[] tiles = new Tile[28];
     Image player;
-    Image tablero;
-    int casilla;
-    Image dado;
-    Sprite[] carasDado;
+    Image board;
+    int tile;
+    Image dice;
+    Sprite[] diceFaces;
+    Font font;
 
     public GameScreen()
     {
         player = new Image("imgs/character.png", 110,82);
-        tablero = new Image("imgs/Dam-Pursuit-bg.png", 1024, 576);
-        preguntas = Pregunta.LoadPreguntas();
+        board = new Image("imgs/Dam-Pursuit-bg.png", 1024, 576);
+        font = new Font("fonts/prince_valiant.ttf", 20);
+        questions = Question.LoadQuestions();
         CrearCasillas();
-        casilla = 0;
+        tile = 0;
         Move();
-        CrearDado();
+        DrawDice();
     }
 
     ~GameScreen()
     {
-        Pregunta.SavePreguntas(preguntas);
+        Question.SaveQuestions(questions);
     }
 
     public void Show()
@@ -63,45 +66,45 @@ class GameScreen
             if (pulsed)
             {
                 Refresh();
-                DrawDado(number);
+                DrawDice(number);
                 number++;
-                int casillaActual = casilla;
-                if (casilla + number > 27)
+                int actualTile = tile;
+                if (tile + number > 27)
                 {
                     for (int i = 0; i < number; i++)
                     {
-                        if (casilla + 1 == 28)
+                        if (tile + 1 == 28)
                         {
-                            casilla = -1;
+                            tile = -1;
                         }
-                        casilla++;
+                        tile++;
                     }
-                    DrawSquare("verde", casillas[casilla]);
+                    DrawSquare("green", tiles[tile]);
                 }
                 else
                 {
-                    DrawSquare("verde", casillas[casilla + number]);
+                    DrawSquare("green", tiles[tile + number]);
                 }
 
-                casilla = casillaActual;
-                if (casilla - number < 0)
+                tile = actualTile;
+                if (tile - number < 0)
                 {
                     for (int i = 0; i < number; i++)
                     {
-                        if (casilla - 1 == -1)
+                        if (tile - 1 == -1)
                         {
-                            casilla = 28;
+                            tile = 28;
                         }
-                        casilla--;
+                        tile--;
                     }
-                    DrawSquare("rojo", casillas[casilla]);
+                    DrawSquare("red", tiles[tile]);
                 }
                 else
                 {
-                    DrawSquare("rojo", casillas[casilla - number]);
+                    DrawSquare("red", tiles[tile - number]);
                 }
                 pulsed = false;
-                casilla = casillaActual;
+                tile = actualTile;
             }
             //PAUSE
             Thread.Sleep(50);
@@ -114,27 +117,27 @@ class GameScreen
         //Casillas arriba
         for (int i = 0; i < 7; i++)
         {
-            casillas[i] = new Casilla
+            tiles[i] = new Tile
             {
                 X = (short)(14 + (i*92) + (i*5)),
-                Y = 113,
+                Y = 86,
             };
         }
 
         //Casillas derecha
         for (int i = 0; i < 7; i++)
         {
-            casillas[i+7] = new Casilla
+            tiles[i+7] = new Tile
             {
                 X = 693,
-                Y = (short)(113 + (i) + (i*58)),
+                Y = (short)(86 + (i) + (i*58)),
             };
         }
 
         //Casillas abajo
         for (int i = 0; i < 7; i++)
         {
-            casillas[i+14] = new Casilla
+            tiles[i+14] = new Tile
             {
                 X = (short)(693 - (i * 92) - (i * 5)),
                 Y = 526,
@@ -144,87 +147,87 @@ class GameScreen
         //Casillas izquierda
         for (int i = 0; i < 7; i++)
         {
-            casillas[i+21] = new Casilla
+            tiles[i+21] = new Tile
             {
                 X = 14,
                 Y = (short)(526 - (i) - (i * 58)),
             };
         }
 
-        casillas[0].categoria = Categoria.Databases;
-        casillas[1].categoria = Categoria.Programming;
-        casillas[2].categoria = Categoria.Systems;
-        casillas[3].categoria = Categoria.Web;
-        casillas[4].categoria = Categoria.Databases;
-        casillas[5].categoria = Categoria.Programming;
-        casillas[6].categoria = Categoria.Systems;
-        casillas[7].categoria = Categoria.Web;
+        tiles[0].category = Category.Databases;
+        tiles[1].category = Category.Programming;
+        tiles[2].category = Category.Systems;
+        tiles[3].category = Category.Web;
+        tiles[4].category = Category.Databases;
+        tiles[5].category = Category.Programming;
+        tiles[6].category = Category.Systems;
+        tiles[7].category = Category.Web;
 
-        casillas[8].categoria = Categoria.Systems;
-        casillas[9].categoria = Categoria.Web;
-        casillas[10].categoria = Categoria.Databases;
-        casillas[11].categoria = Categoria.Systems;
-        casillas[12].categoria = Categoria.Programming;
-        casillas[13].categoria = Categoria.Databases;
+        tiles[8].category = Category.Systems;
+        tiles[9].category = Category.Web;
+        tiles[10].category = Category.Databases;
+        tiles[11].category = Category.Systems;
+        tiles[12].category = Category.Programming;
+        tiles[13].category = Category.Databases;
 
-        casillas[14].categoria = Categoria.Programming;
-        casillas[15].categoria = Categoria.Databases;
-        casillas[16].categoria = Categoria.Web;
-        casillas[17].categoria = Categoria.Programming;
-        casillas[18].categoria = Categoria.Databases;
-        casillas[19].categoria = Categoria.Systems;
-        casillas[20].categoria = Categoria.Web;
-        casillas[21].categoria = Categoria.Systems;
+        tiles[14].category = Category.Programming;
+        tiles[15].category = Category.Databases;
+        tiles[16].category = Category.Web;
+        tiles[17].category = Category.Programming;
+        tiles[18].category = Category.Databases;
+        tiles[19].category = Category.Systems;
+        tiles[20].category = Category.Web;
+        tiles[21].category = Category.Systems;
 
-        casillas[22].categoria = Categoria.Web;
-        casillas[23].categoria = Categoria.Programming;
-        casillas[24].categoria = Categoria.Databases;
-        casillas[25].categoria = Categoria.Web;
-        casillas[26].categoria = Categoria.Systems;
-        casillas[27].categoria = Categoria.Programming;
+        tiles[22].category = Category.Web;
+        tiles[23].category = Category.Programming;
+        tiles[24].category = Category.Databases;
+        tiles[25].category = Category.Web;
+        tiles[26].category = Category.Systems;
+        tiles[27].category = Category.Programming;
     }
 
     public void Refresh()
     {
         Hardware.ClearScreen();
-        Hardware.DrawImage(tablero);
+        Hardware.DrawImage(board);
         Hardware.DrawImage(player);
         Hardware.UpdateScreen();
     }
 
     private void Move()
     {
-        player.MoveTo((short)(casillas[casilla].X - 8), (short)(casillas[casilla].Y - 22));
+        player.MoveTo((short)(tiles[tile].X - 8), (short)(tiles[tile].Y - 22));
     }
 
-    private void CrearDado()
+    private void DrawDice()
     {
-        dado = new Image("imgs/dice.png",640,320);
-        carasDado = new Sprite[6];
+        dice = new Image("imgs/dice.png",640,320);
+        diceFaces = new Sprite[6];
 
         for (int i = 0; i < 6; i++)
         {
-            carasDado[i] = new Sprite((short)((3*i) +(i*104)-i),107, 104, 105);
+            diceFaces[i] = new Sprite((short)((3*i) +(i*104)-i),107, 104, 105);
         }
     }
 
-    private void DrawDado(int number)
+    private void DrawDice(int number)
     {
-        Hardware.DrawSprite(dado, (short)(790 - (carasDado[number].Width)), 2,
-                    carasDado[number].X, carasDado[number].Y,
-                    carasDado[number].Width, carasDado[number].Height);
+        Hardware.DrawSprite(dice, (short)(790 - (diceFaces[number].Width)), 2,
+                    diceFaces[number].X, diceFaces[number].Y,
+                    diceFaces[number].Width, diceFaces[number].Height);
         Hardware.UpdateScreen();
     }
 
-    private void DrawSquare(string color, Casilla actual)
+    private void DrawSquare(string color, Tile current)
     {
-        if (color == "verde")
+        if (color == "green")
         {
-            Hardware.DrawSquare(actual.X, actual.Y, (short)(actual.X+91), (short)(actual.Y+57), 0, 190, 0, 255);
+            Hardware.DrawSquare(current.X, current.Y, (short)(current.X+72), (short)(current.Y+57), 0, 190, 0, 255);
         }
-        else if (color == "rojo")
+        else if (color == "red")
         {
-            Hardware.DrawSquare(actual.X, actual.Y, (short)(actual.X + 91), (short)(actual.Y+57), 255, 0, 0, 255);
+            Hardware.DrawSquare(current.X, current.Y, (short)(current.X + 72), (short)(current.Y+57), 255, 0, 0, 255);
         }
     }
 }

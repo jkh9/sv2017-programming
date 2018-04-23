@@ -47,6 +47,15 @@ public static class Hardware
         Sdl.SDL_BlitSurface(img.ImagePtr, ref source, screen, ref target);
     }
 
+    public static void DrawImage(Image img,short width,short height)
+    {
+        Sdl.SDL_Rect source = new Sdl.SDL_Rect(0, 0, img.ImageWidth,
+            img.ImageHeight);
+        Sdl.SDL_Rect target = new Sdl.SDL_Rect(img.X, img.Y, width,
+            height);
+        Sdl.SDL_BlitSurface(img.ImagePtr, ref source, screen, ref target);
+    }
+
     public static void UpdateScreen()
     {
         Sdl.SDL_Flip(screen);
@@ -93,6 +102,13 @@ public static class Hardware
         Sdl.SDL_Rect src = new Sdl.SDL_Rect(x, y, width, height);
         Sdl.SDL_Rect dest = new Sdl.SDL_Rect(xScreen, yScreen, width, height);
         Sdl.SDL_BlitSurface(image.ImagePtr, ref src, screen, ref dest);
+    }
+
+    public static void WriteText(IntPtr textAsImage, short x, short y)
+    {
+        Sdl.SDL_Rect src = new Sdl.SDL_Rect(0, 0, screenWidth, screenHeight);
+        Sdl.SDL_Rect dest = new Sdl.SDL_Rect(x, y, screenWidth, screenHeight);
+        Sdl.SDL_BlitSurface(textAsImage, ref src, screen, ref dest);
     }
 
     public static void DrawSquare(short x, short y, short x2, short y2, byte r, byte g,
