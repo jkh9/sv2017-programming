@@ -1,4 +1,4 @@
-﻿// Create a program to ask the user for 10 numbers, store them 
+// Create a program to ask the user for 10 numbers, store them 
 // in an array and display the positive ones, sorted ascending, 
 // using LINQ
 
@@ -25,11 +25,11 @@ class Linq1
             where n > 0
             orderby n
             select n;
-		*/
+        */
 
         var result = nums
-			.Where(n => n > 0)
-			.OrderBy(n => n);
+            .Where(n => n > 0)
+            .OrderBy(n => n);
         
         foreach (double i in result)
             Console.Write(i + " ");
